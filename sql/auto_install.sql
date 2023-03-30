@@ -38,6 +38,7 @@ CREATE TABLE `civicrm_config_profile` (
   `type` varchar(255) NOT NULL COMMENT 'Type of configuration profile.',
   `name` varchar(255) NOT NULL COMMENT 'Name of configuration profile.',
   `data` text COMMENT 'Actual profile data as defined by the config profile type provider.',
+  `selector` varchar(255) COMMENT 'A comma-separated list of selector values for identifying the profile without exposing its internal ID.',
   `is_active` tinyint NOT NULL DEFAULT 1 COMMENT 'Whether this configuration profile is active.',
   `is_default` tinyint NOT NULL DEFAULT 0 COMMENT 'Whether this is the default configuration profile for this type.',
   `created_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'When the configuration profile was created.',

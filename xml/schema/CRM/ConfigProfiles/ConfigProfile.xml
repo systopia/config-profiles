@@ -1,115 +1,127 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 
 <table>
-  <base>CRM/ConfigProfiles</base>
-  <class>ConfigProfile</class>
-  <name>civicrm_config_profile</name>
-  <comment>Configuration profiles implemented by config type providers.</comment>
-  <log>true</log>
+    <base>CRM/ConfigProfiles</base>
+    <class>ConfigProfile</class>
+    <name>civicrm_config_profile</name>
+    <comment>Configuration profiles implemented by config type providers.</comment>
+    <log>true</log>
 
-  <field>
-    <name>id</name>
-    <type>int unsigned</type>
-    <required>true</required>
-    <comment>Unique ConfigProfile ID.</comment>
-    <html>
-      <type>Number</type>
-    </html>
-  </field>
-  <primaryKey>
-    <name>id</name>
-    <autoincrement>true</autoincrement>
-  </primaryKey>
+    <field>
+        <name>id</name>
+        <type>int unsigned</type>
+        <required>true</required>
+        <comment>Unique ConfigProfile ID.</comment>
+        <html>
+            <type>Number</type>
+        </html>
+    </field>
+    <primaryKey>
+        <name>id</name>
+        <autoincrement>true</autoincrement>
+    </primaryKey>
 
-  <field>
-    <name>type</name>
-    <title>Configuration Profile Type</title>
-    <required>true</required>
-    <type>varchar</type>
-    <length>255</length>
-    <comment>Type of configuration profile.</comment>
-    <pseudoconstant>
-      <optionGroupName>config_profile_type</optionGroupName>
-    </pseudoconstant>
-    <add>1.0</add>
-    <html>
-      <type>Select</type>
-    </html>
-  </field>
+    <field>
+        <name>type</name>
+        <title>Configuration Profile Type</title>
+        <required>true</required>
+        <type>varchar</type>
+        <length>255</length>
+        <comment>Type of configuration profile.</comment>
+        <pseudoconstant>
+            <optionGroupName>config_profile_type</optionGroupName>
+        </pseudoconstant>
+        <add>1.0</add>
+        <html>
+            <type>Select</type>
+        </html>
+    </field>
 
-  <field>
-    <name>name</name>
-    <title>Config Profile Name</title>
-    <comment>Name of configuration profile.</comment>
-    <required>true</required>
-    <type>varchar</type>
-    <length>255</length>
-    <html>
-      <type>Text</type>
-    </html>
-  </field>
+    <field>
+        <name>name</name>
+        <title>Config Profile Name</title>
+        <comment>Name of configuration profile.</comment>
+        <required>true</required>
+        <type>varchar</type>
+        <length>255</length>
+        <html>
+            <type>Text</type>
+        </html>
+    </field>
 
-  <field>
-    <name>data</name>
-    <type>text</type>
-    <title>Profile Data</title>
-    <comment>Actual profile data as defined by the config profile type provider.</comment>
-    <serialize>JSON</serialize>
-    <add>1.0</add>
-  </field>
+    <field>
+        <name>data</name>
+        <type>text</type>
+        <title>Profile Data</title>
+        <comment>Actual profile data as defined by the config profile type provider.</comment>
+        <serialize>JSON</serialize>
+        <add>1.0</add>
+    </field>
 
-  <field>
-    <name>is_active</name>
-    <title>Is active</title>
-    <type>boolean</type>
-    <default>1</default>
-    <required>true</required>
-    <html>
-      <type>CheckBox</type>
-      <label>Default</label>
-    </html>
-    <comment>Whether this configuration profile is active.</comment>
-    <add>1.0</add>
-  </field>
+    <field>
+        <name>selector</name>
+        <type>varchar</type>
+        <length>255</length>
+        <html>
+            <type>Text</type>
+            <label>Selector</label>
+        </html>
+        <comment>A comma-separated list of selector values for identifying the profile without exposing its internal ID.</comment>
+        <add>1.0</add>
+    </field>
 
-  <field>
-    <name>is_default</name>
-    <title>Is Default Configuration Profile</title>
-    <type>boolean</type>
-    <default>0</default>
-    <required>true</required>
-    <html>
-      <type>CheckBox</type>
-      <label>Default</label>
-    </html>
-    <comment>Whether this is the default configuration profile for this type.</comment>
-    <add>1.0</add>
-  </field>
+    <field>
+        <name>is_active</name>
+        <title>Is active</title>
+        <type>boolean</type>
+        <default>1</default>
+        <required>true</required>
+        <html>
+            <type>CheckBox</type>
+            <label>Default</label>
+        </html>
+        <comment>Whether this configuration profile is active.</comment>
+        <add>1.0</add>
+    </field>
 
-  <field>
-    <name>created_date</name>
-    <type>timestamp</type>
-    <comment>When the configuration profile was created.</comment>
-    <required>false</required>
-    <default>CURRENT_TIMESTAMP</default>
-    <add>1.0</add>
-  </field>
+    <field>
+        <name>is_default</name>
+        <title>Is Default Configuration Profile</title>
+        <type>boolean</type>
+        <default>0</default>
+        <required>true</required>
+        <html>
+            <type>CheckBox</type>
+            <label>Default</label>
+        </html>
+        <comment>Whether this is the default configuration profile for this type.</comment>
+        <add>1.0</add>
+    </field>
 
-  <field>
-    <name>modified_date</name>
-    <type>timestamp</type>
-    <comment>When the configuration profile was created or last modified.</comment>
-    <required>false</required>
-    <default>CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP</default>
-    <add>1.0</add>
-  </field>
+    <field>
+        <name>created_date</name>
+        <type>timestamp</type>
+        <comment>When the configuration profile was created.</comment>
+        <required>false</required>
+        <default>CURRENT_TIMESTAMP</default>
+        <add>1.0</add>
+    </field>
 
-  <field>
-    <name>access_date</name>
-    <type>timestamp</type>
-    <comment>When the configuration profile was last accessed.</comment>
-    <required>false</required>
-    <add>1.0</add>
-  </field>
+    <field>
+        <name>modified_date</name>
+        <type>timestamp</type>
+        <comment>When the configuration profile was created or last modified.</comment>
+        <required>false</required>
+        <default>CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP</default>
+        <add>1.0</add>
+    </field>
+
+    <field>
+        <name>access_date</name>
+        <type>timestamp</type>
+        <comment>When the configuration profile was last accessed.</comment>
+        <required>false</required>
+        <add>1.0</add>
+    </field>
 
 </table>
