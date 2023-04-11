@@ -78,7 +78,7 @@
         <required>true</required>
         <html>
             <type>CheckBox</type>
-            <label>Default</label>
+            <label>Enabled</label>
         </html>
         <comment>Whether this configuration profile is active.</comment>
         <add>1.0</add>
