@@ -11,7 +11,7 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
    * @var array $_types
    *   A static cache of classes implementing specific profile types.
    */
-  static private array $_types;
+  private static ?array $_types;
 
   /**
    * @inheritDoc
@@ -29,7 +29,7 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
    * @return CRM_ConfigProfiles_DAO_ConfigProfile|NULL
    */
   public static function create($params) {
-    $className = self::getTypeClass($params['type']) ?? 'CRM_ConfigProfiles_DAO_ConfigProfile';
+    $className = $params['type'] ?? 'CRM_ConfigProfiles_DAO_ConfigProfile';
     $entityName = 'ConfigProfile';
     $hook = empty($params['id']) ? 'create' : 'edit';
 
@@ -42,8 +42,9 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
     return $instance;
   }
 
-  private function getTypeClass($type) {
+  private static function getTypeClass($type) {
     if (!isset(self::$_types)) {
+      self::$_types = [];
       $event = GenericHookEvent::create(['types' => &self::$_types]);
       Civi::dispatcher()->dispatch('civi.config_profiles.types', $event);
     }
