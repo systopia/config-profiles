@@ -6,6 +6,6 @@ use Civi\Api4\Service\Spec\RequestSpec;
 
 interface ConfigProfileInterface {
 
-  public static function modifyFieldSpec(RequestSpec $spec);
+  public static function modifyFieldSpec(RequestSpec $spec): void;
 
 }
