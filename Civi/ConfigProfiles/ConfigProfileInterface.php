@@ -8,4 +8,6 @@ interface ConfigProfileInterface {
 
   public static function modifyFieldSpec(RequestSpec $spec): void;
 
+  public static function getMetadata(): array;
+
 }

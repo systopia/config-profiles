@@ -12,20 +12,16 @@ class ConfigProfileSpecProvider implements SpecProviderInterface {
    * This adds "pseudo" fields to the API specification depending on the value
    * for "type".
    *
-   * TODO: Afform does not add the value for "type" when setting a value for
-   *       "type", so the form does not know about "pseudo" fields added to the
-   *       specification here. So we will have to provide our own API entities
-   *       per config-profile type.
-   *
    * @param \Civi\Api4\Service\Spec\RequestSpec $spec
    */
   public function modifySpec(RequestSpec $spec) {
-    if (
+   if (
       ($type = $spec->getValue('type'))
-      && in_array(ConfigProfileInterface::class, class_implements($type))
+      && ($class = \CRM_ConfigProfiles_BAO_ConfigProfile::getClassFromTypeName($type))
+      && in_array(ConfigProfileInterface::class, class_implements($class))
     ) {
-      /* @var ConfigProfileInterface $type */
-      $type::modifyFieldSpec($spec);
+      /* @var ConfigProfileInterface $class */
+      $class::modifyFieldSpec($spec);
     }
   }
 

@@ -52,6 +52,30 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
     return self::$_types[$type];
   }
 
+  public static function getTypes() {
+    // TODO: Add (static) caching.
+    $types = [];
+    foreach (\CRM_Core_PseudoConstant::get('CRM_ConfigProfiles_DAO_ConfigProfile', 'type') as $class => &$label) {
+      /* @var \Civi\ConfigProfiles\ConfigProfileInterface $class */
+      $metadata = $class::getMetadata();
+      $name = $metadata['name'];
+      $types[$name] = $metadata;
+      $types[$name]['class'] = $class;
+      $types[$name]['entity_name'] = 'ConfigProfile_' . $types[$class]['name'];
+      $types[$name]['icon'] ??= 'fa-cogs';
+    }
+    return $types;
+  }
+
+  public static function getTypeFromApiEntityName($entityName) {
+    return strpos($entityName, 'ConfigProfile_') === 0 ? substr($entityName, strlen('ConfigProfile_')) : NULL;
+  }
+
+  public static function getClassFromTypeName($type_name) {
+    $types = self::getTypes();
+    return $types[$type_name]['class'];
+  }
+
   /**
    * Provides Afform metadata about this entity.
    *
