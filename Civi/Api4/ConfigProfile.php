@@ -50,6 +50,7 @@ class ConfigProfile {
     $action = (new GetAction('ConfigProfile', __FUNCTION__))
       ->setCheckPermissions($checkPermissions);
     if (isset($profile_type)) {
+      $action->setType($profile_type);
       $action->addWhere('type', '=', $profile_type);
     }
     return $action;
