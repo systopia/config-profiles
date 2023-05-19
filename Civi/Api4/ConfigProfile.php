@@ -5,14 +5,14 @@ namespace Civi\Api4;
 use Civi\Api4\Action\GetActions;
 use Civi\Api4\Generic\BasicReplaceAction;
 use Civi\Api4\Generic\CheckAccessAction;
-use Civi\Api4\Generic\DAOCreateAction;
 use Civi\Api4\Generic\DAODeleteAction;
 use Civi\Api4\Generic\DAOGetAction;
 use Civi\Api4\Generic\DAOGetFieldsAction;
-use Civi\Api4\Generic\DAOSaveAction;
-use Civi\Api4\Generic\DAOUpdateAction;
 use Civi\Api4\Generic\Result;
+use Civi\ConfigProfiles\Api4\Action\CreateAction;
 use Civi\ConfigProfiles\Api4\Action\GetAction;
+use Civi\ConfigProfiles\Api4\Action\SaveAction;
+use Civi\ConfigProfiles\Api4\Action\UpdateAction;
 
 /**
  * ConfigProfile entity.
@@ -34,7 +34,6 @@ class ConfigProfile {
       ->setCheckPermissions($checkPermissions);
     if (isset($profile_type)) {
       $action
-        ->addWhere('type', '=', $profile_type)
         ->addValue('type', $profile_type);
     }
     return $action;
@@ -80,7 +79,7 @@ class ConfigProfile {
    * @throws \API_Exception
    */
   public static function save(string $profile_type = NULL, $checkPermissions = TRUE) {
-    $action = (new DAOSaveAction('ConfigProfile', __FUNCTION__))
+    $action = (new SaveAction('ConfigProfile', __FUNCTION__))
       ->setCheckPermissions($checkPermissions);
     if (isset($profile_type)) {
       $action->addDefault('type', $profile_type);
@@ -96,7 +95,7 @@ class ConfigProfile {
    * @throws \API_Exception
    */
   public static function create(string $profile_type = NULL, $checkPermissions = TRUE) {
-    $action = (new DAOCreateAction('ConfigProfile', __FUNCTION__))
+    $action = (new CreateAction('ConfigProfile', __FUNCTION__))
       ->setCheckPermissions($checkPermissions);
     if (isset($profile_type)) {
       $action->addValue('type', $profile_type);
@@ -112,7 +111,7 @@ class ConfigProfile {
    * @throws \API_Exception
    */
   public static function update(string $profile_type = NULL, $checkPermissions = TRUE) {
-    $action = (new DAOUpdateAction('ConfigProfile', __FUNCTION__))
+    $action = (new UpdateAction('ConfigProfile', __FUNCTION__))
       ->setCheckPermissions($checkPermissions);
     if (isset($profile_type)) {
       $action
@@ -163,12 +162,8 @@ class ConfigProfile {
    * @return GetActions
    */
   public static function getActions(string $profile_type = NULL, $checkPermissions = TRUE) {
-    $action = (new GetActions('ConfigProfile', __FUNCTION__))
+    return (new GetActions('ConfigProfile', __FUNCTION__))
       ->setCheckPermissions($checkPermissions);
-    if (isset($profile_type)) {
-      $action->addWhere('type', '=', $profile_type);
-    }
-    return $action;
   }
 
   /**

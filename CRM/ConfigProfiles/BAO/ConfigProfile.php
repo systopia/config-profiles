@@ -29,7 +29,7 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
    * @return CRM_ConfigProfiles_DAO_ConfigProfile|NULL
    */
   public static function create($params) {
-    $className = $params['type'] ?? 'CRM_ConfigProfiles_DAO_ConfigProfile';
+    $className = self::getTypeClass($params['type']) ?? 'CRM_ConfigProfiles_DAO_ConfigProfile';
     $entityName = 'ConfigProfile';
     $hook = empty($params['id']) ? 'create' : 'edit';
 
