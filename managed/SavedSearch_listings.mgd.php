@@ -21,6 +21,8 @@ foreach (\CRM_ConfigProfiles_BAO_ConfigProfile::getTypes() as $type) {
           'version' => 4,
           'select' => [
             'name',
+            'is_active',
+            'is_default',
             'created_date',
             'modified_date',
           ],
@@ -46,7 +48,7 @@ foreach (\CRM_ConfigProfiles_BAO_ConfigProfile::getTypes() as $type) {
     'params' => [
       'version' => 4,
       'values' => [
-        'name' => 'ConfigProfiles_Listing_Display' . $type['name'],
+        'name' => 'ConfigProfiles_Listing_Display_' . $type['name'],
         'label' => E::ts('Configuration Profiles Display: %1', [1 => $type['label']]),
         'saved_search_id.name' => 'ConfigProfiles_Listing_' . $type['name'],
         'type' => 'table',
@@ -70,28 +72,20 @@ foreach (\CRM_ConfigProfiles_BAO_ConfigProfile::getTypes() as $type) {
               'dataType' => 'String',
               'label' => E::ts('Name'),
               'sortable' => TRUE,
-              'editable' => TRUE,
             ],
             [
               'type' => 'field',
-              'key' => 'type:label',
-              'dataType' => 'String',
-              'label' => E::ts('Type'),
+              'key' => 'is_default',
+              'dataType' => 'Boolean',
+              'label' => 'Standard',
               'sortable' => TRUE,
-              'icons' => [
-                [
-                  'field' => 'type:icon',
-                  'side' => 'left',
-                ],
-                [
-                  'icon' => $type['icon'],
-                  'side' => 'left',
-                  'if' => [
-                    'type:icon',
-                    'IS EMPTY',
-                  ],
-                ],
-              ],
+            ],
+            [
+              'type' => 'field',
+              'key' => 'is_active',
+              'dataType' => 'Boolean',
+              'label' => 'Aktiviert',
+              'sortable' => TRUE,
             ],
             [
               'type' => 'field',

@@ -8,5 +8,5 @@
   <div class="af-container af-layout-inline">
     <af-field name="name" defn="{ldelim}required: false, input_attrs: {ldelim}placeholder: '{ts}Filter by Name{/ts}'{rdelim}, label: false{rdelim}" ></af-field>
   </div>
-  <crm-search-display-table search-name="ConfigProfiles_Listing_{$profileType.name}" display-name="ConfigProfiles_Listing_Display{$profileType.name}"></crm-search-display-table>
+  <crm-search-display-table search-name="ConfigProfiles_Listing_{$profileType.name}" display-name="ConfigProfiles_Listing_Display_{$profileType.name}"></crm-search-display-table>
 </div>
