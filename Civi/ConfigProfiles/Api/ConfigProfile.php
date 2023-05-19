@@ -46,26 +46,41 @@ class ConfigProfile implements EventSubscriberInterface, ApiProviderInterface {
     foreach (\CRM_ConfigProfiles_BAO_ConfigProfile::getTypes() as $profile_type) {
       $event->entities[$profile_type['entity_name']] = [
         'name' => $profile_type['entity_name'],
-        'title' => $profile_type['label'],
-        'title_plural' => $profile_type['label'],
+        'title' => E::ts('%1 Configuration Profile', [1 => $profile_type['label']]),
+        'title_plural' => E::ts('%1 Configuration Profiles', [1 => $profile_type['label']]),
         'description' => ts('Configuration Profile %1', [1 => $profile_type['label']]),
         'primary_key' => ['id'],
         'type' => ['ConfigProfile'],
         'table_name' => 'civicrm_config_profile',
         'class_args' => [$profile_type['name']],
-        'label_field' => 'title',
+        'label_field' => 'name',
         'icon_field' => ['icon'],
         'searchable' => 'secondary',
         'paths' => [
           'browse' => "civicrm/admin/config-profile/{$profile_type['name']}",
-          'view' => "civicrm/admin/config-profile/edit/{$profile_type['name']}#?{$profile_type['entity_name']}=[id]",
-          'update' => "civicrm/admin/config-profile/edit/{$profile_type['name']}#?{$profile_type['entity_name']}=[id]",
-          'add' => "civicrm/admin/config-profile/edit/{$profile_type['name']}",
+          'view' => "civicrm/admin/config-profile/{$profile_type['name']}/edit#?{$profile_type['entity_name']}=[id]",
+          'update' => "civicrm/admin/config-profile/{$profile_type['name']}/edit#?{$profile_type['entity_name']}=[id]",
+          'add' => "civicrm/admin/config-profile/{$profile_type['name']}/edit",
         ],
         'class' => '\Civi\Api4\ConfigProfile',
         'icon' => $profile_type['icon'],
       ];
     }
+    $event->entities['ConfigProfile'] = [
+      'name' => 'ConfigProfile',
+      'title' => E::ts('Configuration Profile (generic)'),
+      'title_plural' => E::ts('Configuration Profile (generic)'),
+      'description' => ts('Configuration Profiles (generic)'),
+      'primary_key' => ['id'],
+      'type' => ['ConfigProfile'],
+      'table_name' => 'civicrm_config_profile',
+      'class_args' => [],
+      'label_field' => 'name',
+      'icon_field' => ['icon'],
+      'searchable' => 'secondary',
+      'class' => '\Civi\Api4\ConfigProfile',
+      'icon' => 'fa-cogs',
+    ];
   }
 
   /**
@@ -77,7 +92,7 @@ class ConfigProfile implements EventSubscriberInterface, ApiProviderInterface {
     foreach (\CRM_ConfigProfiles_BAO_ConfigProfile::getTypes() as $profile_type) {
       $e->entities[$profile_type['entity_name']] = [
         'entity' => $profile_type['entity_name'],
-        'label' => $profile_type['label'],
+        'label' => E::ts('%1 Configuration Profile', [1 => $profile_type['label']]),
         'icon' => $profile_type['icon'],
         'type' => 'primary',
         'defaults' => '{}',
@@ -115,14 +130,14 @@ class ConfigProfile implements EventSubscriberInterface, ApiProviderInterface {
       $item = [
         'name' => $name,
         'type' => 'form',
-        'title' => $profile_type['label'],
+        'title' => E::ts('%1 Configuration Profile', [1 => $profile_type['label']]),
         'description' => '',
         'base_module' => E::LONG_NAME,
         'is_dashlet' => FALSE,
         'is_public' => FALSE,
         'is_token' => FALSE,
         'permission' => 'administer CiviCRM',
-        'server_route' => "civicrm/admin/config-profile/edit/{$profile_type['name']}",
+        'server_route' => "civicrm/admin/config-profile/{$profile_type['name']}/edit",
       ];
       if ($event->getLayout) {
         $fields = \Civi\Api4\ConfigProfile::getFields()
@@ -136,7 +151,7 @@ class ConfigProfile implements EventSubscriberInterface, ApiProviderInterface {
           ->addWhere('name', '!=', 'data')
           ->execute();
         $item['layout'] = \CRM_Core_Smarty::singleton()->fetchWith('ang/afformConfigProfile.tpl', [
-          'entityType' => $profile_type,
+          'profileType' => $profile_type,
           'fields' => $fields,
         ]);
       }
@@ -147,8 +162,8 @@ class ConfigProfile implements EventSubscriberInterface, ApiProviderInterface {
       $item = [
         'name' => $name,
         'type' => 'search',
-        'title' => $profile_type['label'],
-        'description' => E::ts('Search listing for configuration profile %1', [1 => $profile_type['label']]),
+        'title' => E::ts('%1 Configuration Profile', [1 => $profile_type['label']]),
+        'description' => E::ts('Search listing for %1 configuration profiles', [1 => $profile_type['label']]),
         'base_module' => E::LONG_NAME,
         'is_dashlet' => FALSE,
         'is_public' => FALSE,
@@ -158,7 +173,7 @@ class ConfigProfile implements EventSubscriberInterface, ApiProviderInterface {
         'requires' => ['crmSearchDisplayTable'],
       ];
       $item['layout'] = \CRM_Core_Smarty::singleton()->fetchWith('ang/afsearch_config-profiles_listing.tpl', [
-        'entityType' => $profile_type,
+        'profileType' => $profile_type,
       ]);
       $afforms[$name] = $item;
     }

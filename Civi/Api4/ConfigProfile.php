@@ -11,6 +11,8 @@ use Civi\Api4\Generic\DAOGetAction;
 use Civi\Api4\Generic\DAOGetFieldsAction;
 use Civi\Api4\Generic\DAOSaveAction;
 use Civi\Api4\Generic\DAOUpdateAction;
+use Civi\Api4\Generic\Result;
+use Civi\ConfigProfiles\Api4\Action\GetAction;
 
 /**
  * ConfigProfile entity.
@@ -31,7 +33,9 @@ class ConfigProfile {
     $action = (new DAOGetFieldsAction('ConfigProfile', __FUNCTION__))
       ->setCheckPermissions($checkPermissions);
     if (isset($profile_type)) {
-      $action->addValue('type', $profile_type);
+      $action
+        ->addWhere('type', '=', $profile_type)
+        ->addValue('type', $profile_type);
     }
     return $action;
   }
@@ -44,10 +48,10 @@ class ConfigProfile {
    * @throws \API_Exception
    */
   public static function get(string $profile_type = NULL, $checkPermissions = TRUE) {
-    $action = (new DAOGetAction('ConfigProfile', __FUNCTION__))
+    $action = (new GetAction('ConfigProfile', __FUNCTION__))
       ->setCheckPermissions($checkPermissions);
     if (isset($profile_type)) {
-      $action->addValue('type', $profile_type);
+      $action->addWhere('type', '=', $profile_type);
     }
     return $action;
   }
@@ -63,7 +67,7 @@ class ConfigProfile {
     $action = (new \Civi\Api4\Generic\AutocompleteAction('ConfigProfile', __FUNCTION__))
       ->setCheckPermissions($checkPermissions);
     if (isset($profile_type)) {
-      $action->addValue('type', $profile_type);
+      $action->addFilter('type', $profile_type);
     }
     return $action;
   }
@@ -79,7 +83,7 @@ class ConfigProfile {
     $action = (new DAOSaveAction('ConfigProfile', __FUNCTION__))
       ->setCheckPermissions($checkPermissions);
     if (isset($profile_type)) {
-      $action->addValue('type', $profile_type);
+      $action->addDefault('type', $profile_type);
     }
     return $action;
   }
@@ -111,7 +115,9 @@ class ConfigProfile {
     $action = (new DAOUpdateAction('ConfigProfile', __FUNCTION__))
       ->setCheckPermissions($checkPermissions);
     if (isset($profile_type)) {
-      $action->addValue('type', $profile_type);
+      $action
+        ->addWhere('type', '=', $profile_type)
+        ->addValue('type', $profile_type);
     }
     return $action;
   }
@@ -127,7 +133,7 @@ class ConfigProfile {
     $action = (new DAODeleteAction('ConfigProfile', __FUNCTION__))
       ->setCheckPermissions($checkPermissions);
     if (isset($profile_type)) {
-      $action->addValue('type', $profile_type);
+      $action->addWhere('type', '=', $profile_type);
     }
     return $action;
   }
@@ -143,7 +149,9 @@ class ConfigProfile {
     $action = (new BasicReplaceAction('ConfigProfile', __FUNCTION__))
       ->setCheckPermissions($checkPermissions);
     if (isset($profile_type)) {
-      $action->addValue('type', $profile_type);
+      $action
+        ->addWhere('type', '=', $profile_type)
+        ->addDefault('type', $profile_type);
     }
     return $action;
   }
@@ -155,8 +163,12 @@ class ConfigProfile {
    * @return GetActions
    */
   public static function getActions(string $profile_type = NULL, $checkPermissions = TRUE) {
-    return (new GetActions('ConfigProfile', __FUNCTION__))
+    $action = (new GetActions('ConfigProfile', __FUNCTION__))
       ->setCheckPermissions($checkPermissions);
+    if (isset($profile_type)) {
+      $action->addWhere('type', '=', $profile_type);
+    }
+    return $action;
   }
 
   /**

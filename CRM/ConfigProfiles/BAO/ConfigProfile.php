@@ -61,7 +61,7 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
       $name = $metadata['name'];
       $types[$name] = $metadata;
       $types[$name]['class'] = $class;
-      $types[$name]['entity_name'] = 'ConfigProfile_' . $types[$class]['name'];
+      $types[$name]['entity_name'] = 'ConfigProfile_' . $name;
       $types[$name]['icon'] ??= 'fa-cogs';
     }
     return $types;
