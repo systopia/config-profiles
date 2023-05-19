@@ -6,7 +6,7 @@ use Civi\Api4\Service\Spec\RequestSpec;
 
 interface ConfigProfileInterface {
 
-  public static function getMetadata(): array;
+  public static function getMetadata(bool $includeFields = FALSE): array;
 
   public static function modifyFieldSpec(RequestSpec $spec): void;
 

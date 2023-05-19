@@ -10,7 +10,7 @@ class GetAction extends DAOGetAction {
 
   protected array $selectFields = [];
 
-  protected string $type;
+  protected ?string $type = NULL;
 
   public function setType($type) {
     $this->type = $type;
@@ -20,7 +20,7 @@ class GetAction extends DAOGetAction {
     if (isset($this->type)) {
       /* @var \Civi\ConfigProfiles\ConfigProfileInterface $class */
       $class = \CRM_ConfigProfiles_BAO_ConfigProfile::getClassFromTypeName($this->type);
-      foreach (array_keys($class::getMetadata()['fields']) as $field_name) {
+      foreach (array_keys($class::getMetadata(TRUE)['fields']) as $field_name) {
         // Store pseudo "data" fields in the SELECT clause.
         if (in_array($field_name, $this->select)) {
           $this->selectFields[] = $field_name;

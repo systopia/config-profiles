@@ -52,12 +52,12 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
     return self::$_types[$type];
   }
 
-  public static function getTypes() {
+  public static function getTypes($includeFields = FALSE) {
     // TODO: Add (static) caching.
     $types = [];
     foreach (\CRM_Core_PseudoConstant::get('CRM_ConfigProfiles_DAO_ConfigProfile', 'type') as $class => &$label) {
       /* @var \Civi\ConfigProfiles\ConfigProfileInterface $class */
-      $metadata = $class::getMetadata();
+      $metadata = $class::getMetadata($includeFields);
       $name = $metadata['name'];
       $types[$name] = $metadata;
       $types[$name]['class'] = $class;
