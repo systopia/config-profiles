@@ -82,7 +82,7 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
    *
    * @param GenericHookEvent $e
    */
-  public static function afformEntityTypes(GenericHookEvent $e) {
+  public static function afformEntityTypes(GenericHookEvent $event) {
     $event->entities['ConfigProfile'] = [
       'entity' => $entity,
       'label' => E::ts('Configuration Profile (generic)'),
@@ -92,7 +92,7 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
     ];
 
     foreach (\CRM_ConfigProfiles_BAO_ConfigProfile::getTypes() as $profile_type) {
-      $e->entities[$profile_type['entity_name']] = [
+      $event->entities[$profile_type['entity_name']] = [
         'entity' => $profile_type['entity_name'],
         'label' => E::ts('%1 Configuration Profile', [1 => $profile_type['label']]),
         'icon' => $profile_type['icon'],
