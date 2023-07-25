@@ -40,7 +40,10 @@ class GetAction extends DAOGetAction {
         $row[$field_name] = $row['data'][$field_name];
       }
     }
-    unset($row['data']);
+    // TODO: Is this correct?
+    if (isset($row)) {
+      unset($row['data']);
+    }
   }
 
   /**
