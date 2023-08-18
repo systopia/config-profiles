@@ -16,6 +16,16 @@ class GetAction extends DAOGetAction {
     $this->type = $type;
   }
 
+  public function addWhere(string $fieldName, string $op, $value = NULL, bool $isExpression = FALSE) {
+    // For pseudo data fields, add conditions for the "data" column with the
+    // "CONTAINS" operator.
+    $fields = $this->entityFields();
+    if (!empty($fields[$fieldName]['column_name'])) {
+      return parent::addWhere($fieldName, $op, $value, $isExpression);
+    }
+    return parent::addWhere('data', 'CONTAINS', '"' . $fieldName . '":"' . $value . '"');
+  }
+
   public function getObjects(Result $result) {
     if (isset($this->type)) {
       /* @var \Civi\ConfigProfiles\ConfigProfileInterface $class */
@@ -26,8 +36,6 @@ class GetAction extends DAOGetAction {
           $this->selectFields[] = $field_name;
           unset($this->select[array_search($field_name, $this->select)]);
         }
-
-        // TODO: Transform filters for pseudo data fields.
       }
       if (!empty($this->selectFields)) {
         $this->addSelect('data');
