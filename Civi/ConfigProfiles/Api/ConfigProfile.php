@@ -67,7 +67,7 @@ class ConfigProfile implements EventSubscriberInterface, ApiProviderInterface {
     $event->entities['ConfigProfile'] = [
       'name' => 'ConfigProfile',
       'title' => E::ts('Configuration Profile (generic)'),
-      'title_plural' => E::ts('Configuration Profile (generic)'),
+      'title_plural' => E::ts('Configuration Profiles (generic)'),
       'description' => ts('Configuration Profiles (generic)'),
       'primary_key' => ['id'],
       'type' => ['ConfigProfile'],

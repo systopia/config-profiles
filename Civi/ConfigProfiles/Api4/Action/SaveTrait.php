@@ -19,10 +19,11 @@ trait SaveTrait {
       $type = $item['type'];
       /* @var \Civi\ConfigProfiles\ConfigProfileInterface $class */
       $class = $types[$type]['class'];
-      foreach (array_keys($class::getMetadata(TRUE)['fields']) as $field_name) {
+      foreach (array_keys($class::getFields()) as $field_name) {
         $item['data'][$field_name] = $item[$field_name];
         unset($item[$field_name]);
       }
+      $class::processValues($item);
     }
 
     return \CRM_ConfigProfiles_BAO_ConfigProfile::writeRecords($items);

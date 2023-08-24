@@ -56,14 +56,18 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
   public static function getTypes($includeFields = FALSE) {
     // TODO: Add (static) caching.
     $types = [];
-    foreach (\CRM_Core_PseudoConstant::get('CRM_ConfigProfiles_DAO_ConfigProfile', 'type') as $class => &$label) {
-      /* @var \Civi\ConfigProfiles\ConfigProfileInterface $class */
-      $metadata = $class::getMetadata($includeFields);
-      $name = $metadata['name'];
-      $types[$name] = $metadata;
-      $types[$name]['class'] = $class;
-      $types[$name]['entity_name'] = 'ConfigProfile_' . $name;
-      $types[$name]['icon'] ??= 'fa-cogs';
+    $types = \Civi\Api4\OptionValue::get(FALSE)
+      ->addSelect('name', 'label', 'description', 'value', 'icon')
+      ->addWhere('option_group_id:name', '=', 'config_profile_type')
+      ->execute()
+      ->indexBy('name')
+      ->getArrayCopy();
+    foreach ($types as &$type) {
+      unset($type['id']);
+      $type['class'] = $type['value'];
+      unset($type['value']);
+      $type['entity_name'] = 'ConfigProfile_' . $type['name'];
+      $type['icon'] ??= 'fa-cogs';
     }
     return $types;
   }

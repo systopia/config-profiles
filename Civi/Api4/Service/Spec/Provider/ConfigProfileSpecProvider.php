@@ -23,7 +23,7 @@ class ConfigProfileSpecProvider implements SpecProviderInterface {
       /* @var ConfigProfileInterface $class */
 
      // Add pseudo data fields to the API sepcification.
-     foreach ($class::getMetadata(TRUE)['fields'] as $field_name => $field) {
+     foreach ($class::getFields() as $field_name => $field) {
        $spec->addFieldSpec($field);
      }
 
