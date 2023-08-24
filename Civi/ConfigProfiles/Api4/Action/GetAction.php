@@ -46,6 +46,7 @@ class GetAction extends DAOGetAction {
     foreach ($this->selectFields as $field_name) {
       foreach ($result as &$row) {
         $row[$field_name] = $row['data'][$field_name];
+        // TODO: Let configuration type classes transform the values.
       }
     }
     // TODO: Is this correct?
