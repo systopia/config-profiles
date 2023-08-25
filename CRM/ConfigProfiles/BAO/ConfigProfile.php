@@ -54,20 +54,29 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
   }
 
   public static function getTypes($includeFields = FALSE) {
-    // TODO: Add (static) caching.
-    $types = [];
-    $types = \Civi\Api4\OptionValue::get(FALSE)
-      ->addSelect('name', 'label', 'description', 'value', 'icon')
-      ->addWhere('option_group_id:name', '=', 'config_profile_type')
-      ->execute()
-      ->indexBy('name')
-      ->getArrayCopy();
-    foreach ($types as &$type) {
-      unset($type['id']);
-      $type['class'] = $type['value'];
-      unset($type['value']);
-      $type['entity_name'] = 'ConfigProfile_' . $type['name'];
-      $type['icon'] ??= 'fa-cogs';
+    $types = Civi::cache('metadata')->get('ConfigProfileTypes');
+    if (!is_array($types)) {
+      // We can not use APIv4 for retrieving types (which are OptionValues) as
+      // this causes an infinite loop when called inside
+      // hook_civicrm_entityTypes().
+      $optionGroupId = \CRM_Core_DAO::getFieldValue(
+        'CRM_Core_DAO_OptionGroup',
+        'config_profile_type',
+        'id',
+        'name'
+      );
+      $types = CRM_Core_DAO::executeQuery(
+        "SELECT `name`, `label`, `description`, `value` AS 'class', `icon`
+      FROM `civicrm_option_value`
+      WHERE `civicrm_option_value`.`option_group_id` = $optionGroupId"
+      )->fetchAll();
+      foreach ($types as &$type) {
+        $type['entity_name'] = 'ConfigProfile_' . $type['name'];
+        if (empty($type['icon'])) {
+          $type['icon'] = 'fa-cogs';
+        }
+      }
+      Civi::cache('metadata')->set('ConfigProfileTypes', $types);
     }
     return $types;
   }
