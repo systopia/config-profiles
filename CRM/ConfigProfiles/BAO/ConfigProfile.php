@@ -76,6 +76,7 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
           $type['icon'] = 'fa-cogs';
         }
       }
+      $types = array_combine(array_column($types, 'name'), $types);
       Civi::cache('metadata')->set('ConfigProfileTypes', $types);
     }
     return $types;
