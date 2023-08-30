@@ -77,7 +77,7 @@ actually useful.
 If you sub-class your profile type class from the
 `\CRM_ConfigProfiles_BAO_ConfigProfile` class, you can add getter methods for
 the additional properties of your profile for easy access to what is persisted
-in the `dta` property.
+in the `data` property.
 
 An implementation might look like this example:
 
