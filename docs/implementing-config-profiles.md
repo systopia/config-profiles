@@ -57,7 +57,8 @@ Your `ConfigProfile` class should implement the
 `\Civi\ConfigProfiles\ConfigProfileInterface`, especially the `getFields()`
 method, which needs to return an array of `\Civi\Api4\Service\Spec\FieldSpec`
 objects. Those fields will be considered by the extension's
-`\Civi\Api4\Service\Spec\Provider\Generic\SpecProviderInterface` implementation.
+`\Civi\Api4\Service\Spec\Provider\Generic\SpecProviderInterface` implementation,
+providing those fields as parameters for the configuration profile's API entity.
 
 Each API4 field specification will add a field to *FormBuilder* forms and save
 its value as an array element in the generic `data` property of the
