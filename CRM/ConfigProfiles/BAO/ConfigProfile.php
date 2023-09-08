@@ -65,21 +65,24 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
         'id',
         'name'
       );
-      $types = CRM_Core_DAO::executeQuery(
-        "SELECT `name`, `label`, `description`, `value` AS 'class', `icon`
+      // The OptionGroup might not yet exist when installing.
+      if ($optionGroupId) {
+        $types = CRM_Core_DAO::executeQuery(
+          "SELECT `name`, `label`, `description`, `value` AS 'class', `icon`
       FROM `civicrm_option_value`
       WHERE `civicrm_option_value`.`option_group_id` = $optionGroupId"
-      )->fetchAll();
-      foreach ($types as &$type) {
-        $type['entity_name'] = 'ConfigProfile_' . $type['name'];
-        if (empty($type['icon'])) {
-          $type['icon'] = 'fa-cogs';
+        )->fetchAll();
+        foreach ($types as &$type) {
+          $type['entity_name'] = 'ConfigProfile_' . $type['name'];
+          if (empty($type['icon'])) {
+            $type['icon'] = 'fa-cogs';
+          }
         }
+        $types = array_combine(array_column($types, 'name'), $types);
+        Civi::cache('metadata')->set('ConfigProfileTypes', $types);
       }
-      $types = array_combine(array_column($types, 'name'), $types);
-      Civi::cache('metadata')->set('ConfigProfileTypes', $types);
     }
-    return $types;
+    return $types ?? [];
   }
 
   public static function getTypeFromApiEntityName($entityName) {
