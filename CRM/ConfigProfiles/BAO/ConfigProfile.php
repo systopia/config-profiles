@@ -101,7 +101,7 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
    */
   public static function afformEntityTypes(GenericHookEvent $event) {
     $event->entities['ConfigProfile'] = [
-      'entity' => $entity,
+      'entity' => 'ConfigProfile',
       'label' => E::ts('Configuration Profile (generic)'),
       'icon' => 'fa-cogs',
       'type' => 'primary',
