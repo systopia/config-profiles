@@ -7,7 +7,7 @@ of configuration options, which we call *Configuration Profiles*.
 Think of an extension that provides connections to an external API (or vice
 versa), each with different options for processing incoming data, you might
 e.&nbsp;g. want to have activities of different types created for each
-connection.
+connection, and you would want to have that be configurable via the UI.
 
 Each type of configuration profiles, no matter what purpose it serves, also
 shares some common pieces of information, such as an ID, a title, a date of its
