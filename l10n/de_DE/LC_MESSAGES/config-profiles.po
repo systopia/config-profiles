@@ -1,0 +1,199 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#: CRM/ConfigProfiles/BAO/ConfigProfile.php
+#: Civi/ConfigProfiles/Api/ConfigProfile.php
+msgid "Configuration Profile (generic)"
+msgstr "Konfigurationsprofil (generisch)"
+
+#: CRM/ConfigProfiles/BAO/ConfigProfile.php
+#: Civi/ConfigProfiles/Api/ConfigProfile.php
+msgid "%1 Configuration Profile"
+msgstr "%1-Konfigurationsprofil"
+
+#: CRM/ConfigProfiles/BAO/ConfigProfile.php
+msgid "Search listing for %1 configuration profiles"
+msgstr "Suchergebnisliste für %1-Konfigurationsprofile"
+
+#: CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Config Profiles"
+msgstr "Konfigurationsprofile"
+
+#: CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Config Profile"
+msgstr "Konfigurationsprofil"
+
+#: CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "ID"
+msgstr "ID"
+
+#: CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Unique ConfigProfile ID."
+msgstr "Eindeutige ConfigProfile-ID."
+
+#: CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Configuration Profile Type"
+msgstr "Konfigurationsprofil-Typ"
+
+#: CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Type of configuration profile."
+msgstr "Typ des Konfigurationsprofils."
+
+#: CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Config Profile Name"
+msgstr "Konfigurationsprofil-Name"
+
+#: CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Name of configuration profile."
+msgstr "Name des Konfigurationsprofils."
+
+#: CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Profile Data"
+msgstr "Profildaten"
+
+#: CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Actual profile data as defined by the config profile type provider."
+msgstr ""
+"Eigentliche Profildaten wie durch den Anbieter des Konfigurationsprofil-"
+"Typs definiert"
+
+#: CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Selector"
+msgstr "Selektor"
+
+#: CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid ""
+"A comma-separated list of selector values for identifying the profile "
+"without exposing its internal ID."
+msgstr ""
+"Eine Komma-separierte Liste von Selektorwerten zur Identifikation des "
+"Profils, ohne dessen interne ID zu exponieren."
+
+#: CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Is active"
+msgstr "Aktiviert"
+
+#: CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Whether this configuration profile is active."
+msgstr "Definiert, ob das Konfigurationsprofil aktiviert ist."
+
+#: CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Enabled"
+msgstr "Aktiviert"
+
+#: CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Is Default Configuration Profile"
+msgstr "Standard-Konfigurationsprofil"
+
+#: CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Whether this is the default configuration profile for this type."
+msgstr "Definiert, ob dies das Standard-Konfigurationsprofil dieses Typs ist."
+
+#: CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Default"
+msgstr "Standard"
+
+#: CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Created Date"
+msgstr "Erstelldatum"
+
+#: CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "When the configuration profile was created."
+msgstr "Wann das Konfigurationsprofile erstellt wurde."
+
+#: CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Modified Date"
+msgstr "Bearbeitungsdatum"
+
+#: CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "When the configuration profile was created or last modified."
+msgstr ""
+"Wann das Konfigurationsprofile zuletzt bearbeitet oder erstellt wurde."
+
+#: CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Access Date"
+msgstr "Zugriffsdatum"
+
+#: CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "When the configuration profile was last accessed."
+msgstr "Wann das Konfigurationsprofil zuletzt verwendet wurde."
+
+#: Civi/ConfigProfiles/Api/ConfigProfile.php
+msgid "%1 Configuration Profiles"
+msgstr "%1-Konfigurationsprofile"
+
+#: Civi/ConfigProfiles/Api/ConfigProfile.php
+msgid "Configuration Profile %1"
+msgstr "Konfigurationsprofil %1"
+
+#: Civi/ConfigProfiles/Api/ConfigProfile.php
+msgid "Configuration Profiles (generic)"
+msgstr "Konfigurationsprofile (generisch)"
+
+#: managed/OptionGroup__config_profile_type.mgd.php
+msgid "Configuration Profile Types"
+msgstr "Konfigurationsprofil-Typen"
+
+#: managed/OptionGroup__config_profile_type.mgd.php
+msgid ""
+"Types of configuration profiles defined and used by extensions implementing "
+"the \"Configuration Profiles\" extension."
+msgstr ""
+"Typen von Konfigurationsprofilen, die durch Erweiterungen definiert und "
+"verwendet werden, die die \"Configuration Profiles\"-Erweiterung "
+"implementieren."
+
+#: managed/SavedSearch_listings.mgd.php
+msgid "Configuration Profiles: %1"
+msgstr "Konfigurationsprofile: %1"
+
+#: managed/SavedSearch_listings.mgd.php
+msgid "Configuration Profiles Display: %1"
+msgstr "Konfigurationsprofile-Anzeige: %1"
+
+#: managed/SavedSearch_listings.mgd.php
+msgid "Name"
+msgstr "Name"
+
+#: managed/SavedSearch_listings.mgd.php
+msgid "Created"
+msgstr "Erstellt"
+
+#: managed/SavedSearch_listings.mgd.php
+msgid "[created_date] by [created_id.display_name]"
+msgstr "[created_date] von [created_id.display_name]"
+
+#: managed/SavedSearch_listings.mgd.php
+msgid "Modified"
+msgstr "Bearbeitet"
+
+#: managed/SavedSearch_listings.mgd.php
+msgid "[modified_date] by [modified_id.display_name]"
+msgstr "[modified_date] von [modified_id.display_name]"
+
+#: managed/SavedSearch_listings.mgd.php
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: templates/ang/afformConfigProfile.tpl
+msgid "Submit"
+msgstr "Absenden"
+
+#: templates/ang/afsearch_config-profiles_listing.tpl
+msgid "Add %1"
+msgstr "%1 hinzufügen"
+
+#: templates/ang/afsearch_config-profiles_listing.tpl
+msgid "Filter by Name"
+msgstr "Nach Name filtern"
