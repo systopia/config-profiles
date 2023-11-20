@@ -1,0 +1,172 @@
+#: ./CRM/ConfigProfiles/BAO/ConfigProfile.php ./Civi/ConfigProfiles/Api/ConfigProfile.php
+msgid "Configuration Profile (generic)"
+msgstr ""
+
+#: ./CRM/ConfigProfiles/BAO/ConfigProfile.php ./Civi/ConfigProfiles/Api/ConfigProfile.php
+msgid "%1 Configuration Profile"
+msgstr ""
+
+#: ./CRM/ConfigProfiles/BAO/ConfigProfile.php
+msgid "Search listing for %1 configuration profiles"
+msgstr ""
+
+#: ./CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Config Profiles"
+msgstr ""
+
+#: ./CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Config Profile"
+msgstr ""
+
+#: ./CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "ID"
+msgstr ""
+
+#: ./CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Unique ConfigProfile ID."
+msgstr ""
+
+#: ./CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Configuration Profile Type"
+msgstr ""
+
+#: ./CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Type of configuration profile."
+msgstr ""
+
+#: ./CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Config Profile Name"
+msgstr ""
+
+#: ./CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Name of configuration profile."
+msgstr ""
+
+#: ./CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Profile Data"
+msgstr ""
+
+#: ./CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Actual profile data as defined by the config profile type provider."
+msgstr ""
+
+#: ./CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Selector"
+msgstr ""
+
+#: ./CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "A comma-separated list of selector values for identifying the profile without exposing its internal ID."
+msgstr ""
+
+#: ./CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Is active"
+msgstr ""
+
+#: ./CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Whether this configuration profile is active."
+msgstr ""
+
+#: ./CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Enabled"
+msgstr ""
+
+#: ./CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Is Default Configuration Profile"
+msgstr ""
+
+#: ./CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Whether this is the default configuration profile for this type."
+msgstr ""
+
+#: ./CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Default"
+msgstr ""
+
+#: ./CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Created Date"
+msgstr ""
+
+#: ./CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "When the configuration profile was created."
+msgstr ""
+
+#: ./CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Modified Date"
+msgstr ""
+
+#: ./CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "When the configuration profile was created or last modified."
+msgstr ""
+
+#: ./CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "Access Date"
+msgstr ""
+
+#: ./CRM/ConfigProfiles/DAO/ConfigProfile.php
+msgid "When the configuration profile was last accessed."
+msgstr ""
+
+#: ./Civi/ConfigProfiles/Api/ConfigProfile.php
+msgid "%1 Configuration Profiles"
+msgstr ""
+
+#: ./Civi/ConfigProfiles/Api/ConfigProfile.php
+msgid "Configuration Profile %1"
+msgstr ""
+
+#: ./Civi/ConfigProfiles/Api/ConfigProfile.php
+msgid "Configuration Profiles (generic)"
+msgstr ""
+
+#: ./managed/OptionGroup__config_profile_type.mgd.php
+msgid "Configuration Profile Types"
+msgstr ""
+
+#: ./managed/OptionGroup__config_profile_type.mgd.php
+msgid "Types of configuration profiles defined and used by extensions implementing the \"Configuration Profiles\" extension."
+msgstr ""
+
+#: ./managed/SavedSearch_listings.mgd.php
+msgid "Configuration Profiles: %1"
+msgstr ""
+
+#: ./managed/SavedSearch_listings.mgd.php
+msgid "Configuration Profiles Display: %1"
+msgstr ""
+
+#: ./managed/SavedSearch_listings.mgd.php
+msgid "Name"
+msgstr ""
+
+#: ./managed/SavedSearch_listings.mgd.php
+msgid "Created"
+msgstr ""
+
+#: ./managed/SavedSearch_listings.mgd.php
+msgid "[created_date] by [created_id.display_name]"
+msgstr ""
+
+#: ./managed/SavedSearch_listings.mgd.php
+msgid "Modified"
+msgstr ""
+
+#: ./managed/SavedSearch_listings.mgd.php
+msgid "[modified_date] by [modified_id.display_name]"
+msgstr ""
+
+#: ./managed/SavedSearch_listings.mgd.php
+msgid "Edit"
+msgstr ""
+
+#: ./templates/ang/afformConfigProfile.tpl
+msgid "Submit"
+msgstr ""
+
+#: ./templates/ang/afsearch_config-profiles_listing.tpl
+msgid "Add %1"
+msgstr ""
+
+#: ./templates/ang/afsearch_config-profiles_listing.tpl
+msgid "Filter by Name"
+msgstr ""
+
