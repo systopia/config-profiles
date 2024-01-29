@@ -68,6 +68,15 @@ class GetAction extends DAOGetAction {
         'action' => $this->getActionName(),
         'where' => [['type', 'IN', $allowedTypes]],
       ];
+
+      // Rebuild API entity cache if ConfigProfile_$type API has not been
+      // registered yet.
+      // TODO: This load-order issue should be solved differently.
+      $knownEntities = \Civi::service('action_object_provider')->getEntities();
+      $entity = $this->getEntityName() . '_' . $this->type;
+      if (!array_key_exists($entity, $knownEntities)) {
+        \Civi::cache('metadata')->clear();
+      }
       $getFields = \Civi\API\Request::create($this->getEntityName() . '_' . $this->type, 'getFields', $getFieldsParams);
       $result = new Result();
       // Pass TRUE for the private $isInternal param
