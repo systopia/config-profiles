@@ -159,8 +159,7 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
         'server_route' => "civicrm/admin/config-profile/{$profile_type['name']}/edit",
       ];
       if ($event->getLayout) {
-        $fields = \Civi\Api4\ConfigProfile::getFields()
-          ->addValue('type', $profile_type['name'])
+        $fields = \Civi\Api4\ConfigProfile::getFields($profile_type['name'], FALSE)
           ->addSelect('name')
           ->addWhere('readonly', 'IS EMPTY')
           ->addWhere('input_type', 'IS NOT EMPTY')
