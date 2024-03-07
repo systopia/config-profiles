@@ -168,6 +168,22 @@ class ConfigProfile {
   }
 
   /**
+   * @return \Civi\Api4\Action\GetLinks
+   */
+  public static function getLinks($checkPermissions = TRUE) {
+    // CiviCRM 5.70+
+    if (class_exists('Civi\Api4\Action\GetLinks')) {
+      return (new \Civi\Api4\Action\GetLinks('ConfigProfile', __FUNCTION__))
+        ->setCheckPermissions($checkPermissions);
+    }
+    // Older versions do not support this action so just return a placeholder
+    else {
+      return (new \Civi\Api4\Generic\BasicGetAction('ConfigProfile', __FUNCTION__, fn() => []))
+        ->setCheckPermissions($checkPermissions);
+    }
+  }
+
+  /**
    * @param string $profile_type
    *
    * @return CheckAccessAction
