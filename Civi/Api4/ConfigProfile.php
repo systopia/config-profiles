@@ -6,6 +6,7 @@ use Civi\Api4\Action\GetActions;
 use Civi\Api4\Generic\BasicReplaceAction;
 use Civi\Api4\Generic\CheckAccessAction;
 use Civi\Api4\Generic\DAODeleteAction;
+use Civi\Api4\Generic\DAOEntity;
 use Civi\Api4\Generic\DAOGetAction;
 use Civi\Api4\Generic\DAOGetFieldsAction;
 use Civi\Api4\Generic\Result;
@@ -21,7 +22,7 @@ use Civi\ConfigProfiles\Api4\Action\UpdateAction;
  *
  * @package Civi\Api4
  */
-class ConfigProfile {
+class ConfigProfile extends DAOEntity {
 
   /**
    * @param string $profile_type
@@ -165,22 +166,6 @@ class ConfigProfile {
   public static function getActions(string $profile_type = NULL, $checkPermissions = TRUE) {
     return (new GetActions('ConfigProfile', __FUNCTION__))
       ->setCheckPermissions($checkPermissions);
-  }
-
-  /**
-   * @return \Civi\Api4\Action\GetLinks
-   */
-  public static function getLinks($checkPermissions = TRUE) {
-    // CiviCRM 5.70+
-    if (class_exists('Civi\Api4\Action\GetLinks')) {
-      return (new \Civi\Api4\Action\GetLinks('ConfigProfile', __FUNCTION__))
-        ->setCheckPermissions($checkPermissions);
-    }
-    // Older versions do not support this action so just return a placeholder
-    else {
-      return (new \Civi\Api4\Generic\BasicGetAction('ConfigProfile', __FUNCTION__, fn() => []))
-        ->setCheckPermissions($checkPermissions);
-    }
   }
 
   /**
