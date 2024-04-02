@@ -86,8 +86,16 @@ namespace Civi\MyExtension;
 
 class ConfigProfile extends \CRM_ConfigProfiles_BAO_ConfigProfile implements Civi\ConfigProfiles\ConfigProfileInterface {
 
+  /**
+   * This is the internal name of the profile type. The API4 entity name for
+   * profiles of this type will be derived from that: "ConfigProfile_example".
+   */
+  const NAME = 'example'
+
   public static function getFields(): array {
     return [
+      // Add a field for storing a base URI of an API this extension might
+      // implement.
       'api_base_uri' => (new FieldSpec('api_base_uri', 'ConfigProfile_' . self::NAME, 'String'))
         ->setTitle(ts('API Base URI'))
         ->setLabel(ts('API Base URI'))
@@ -101,6 +109,14 @@ class ConfigProfile extends \CRM_ConfigProfiles_BAO_ConfigProfile implements Civ
 
   public static function processValues(array &profile): void {}
 
+  /**
+   * Getter for the dynamic field which retrieves values from the
+   * JSON-serialized "data" property of the DAO object. This is why the class
+   * is extending \CRM_ConfigProfiles_BAO_ConfigProfile.
+   * If the processValues() method is being implemented to modify values to
+   * another format as provided by the form, you should transform the value
+   * back to a format accepted by the form, prior to returning.
+   */
   public function getApiBaseUri(): string {
     $data = self::unSerializeField($this->data, self::SERIALIZE_JSON);
     return (string) $data['api_base_uri'];
