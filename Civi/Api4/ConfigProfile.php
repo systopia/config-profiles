@@ -6,9 +6,7 @@ use Civi\Api4\Action\GetActions;
 use Civi\Api4\Generic\BasicReplaceAction;
 use Civi\Api4\Generic\CheckAccessAction;
 use Civi\Api4\Generic\DAODeleteAction;
-use Civi\Api4\Generic\DAOGetAction;
 use Civi\Api4\Generic\DAOGetFieldsAction;
-use Civi\Api4\Generic\Result;
 use Civi\ConfigProfiles\Api4\Action\CreateAction;
 use Civi\ConfigProfiles\Api4\Action\GetAction;
 use Civi\ConfigProfiles\Api4\Action\SaveAction;
@@ -27,7 +25,7 @@ class ConfigProfile {
    * @param string $profile_type
    * @param bool $checkPermissions
    *
-   * @return DAOGetFieldsAction
+   * @return \Civi\Api4\Generic\DAOGetFieldsAction
    */
   public static function getFields(string $profile_type = NULL, $checkPermissions = TRUE) {
     $action = (new DAOGetFieldsAction('ConfigProfile', __FUNCTION__))
@@ -43,7 +41,7 @@ class ConfigProfile {
    * @param string $profile_type
    * @param bool $checkPermissions
    *
-   * @return DAOGetAction
+   * @return \Civi\ConfigProfiles\Api4\Action\GetAction
    * @throws \API_Exception
    */
   public static function get(string $profile_type = NULL, $checkPermissions = TRUE) {
@@ -76,7 +74,7 @@ class ConfigProfile {
    * @param string $profile_type
    * @param bool $checkPermissions
    *
-   * @return EckDAOSaveAction
+   * @return \Civi\ConfigProfiles\Api4\Action\SaveAction
    * @throws \API_Exception
    */
   public static function save(string $profile_type = NULL, $checkPermissions = TRUE) {
@@ -142,7 +140,7 @@ class ConfigProfile {
    * @param string $profile_type
    * @param bool $checkPermissions
    *
-   * @return BasicReplaceAction
+   * @return \Civi\Api4\Generic\BasicReplaceAction
    * @throws \API_Exception
    */
   public static function replace(string $profile_type = NULL, $checkPermissions = TRUE) {
@@ -160,7 +158,7 @@ class ConfigProfile {
    * @param string $profile_type
    * @param bool $checkPermissions
    *
-   * @return GetActions
+   * @return \Civi\Api4\Action\GetActions
    */
   public static function getActions(string $profile_type = NULL, $checkPermissions = TRUE) {
     return (new GetActions('ConfigProfile', __FUNCTION__))
@@ -186,7 +184,7 @@ class ConfigProfile {
   /**
    * @param string $profile_type
    *
-   * @return CheckAccessAction
+   * @return \Civi\Api4\Generic\CheckAccessAction
    * @throws \API_Exception
    */
   public static function checkAccess(string $profile_type = NULL) {

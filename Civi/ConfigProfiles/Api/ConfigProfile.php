@@ -4,8 +4,8 @@ namespace Civi\ConfigProfiles\Api;
 
 use Civi\API\Events;
 use Civi\Core\Event\GenericHookEvent;
-use \Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use \Civi\API\Provider\ProviderInterface as ApiProviderInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Civi\API\Provider\ProviderInterface as ApiProviderInterface;
 use CRM_ConfigProfiles_ExtensionUtil as E;
 
 class ConfigProfile implements EventSubscriberInterface, ApiProviderInterface {
@@ -38,7 +38,7 @@ class ConfigProfile implements EventSubscriberInterface, ApiProviderInterface {
    *
    * Callback for `civi.api4.entityTypes` event.
    *
-   * @param GenericHookEvent $event
+   * @param \Civi\Core\Event\GenericHookEvent $event
    */
   public function onApi4EntityTypes(GenericHookEvent $event) {
     foreach (\CRM_ConfigProfiles_BAO_ConfigProfile::getTypes() as $profile_type) {

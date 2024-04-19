@@ -2,7 +2,7 @@
 
 namespace Civi\ConfigProfiles\Api4\Action;
 
-use \Civi\Api4\Generic\DAOGetAction;
+use Civi\Api4\Generic\DAOGetAction;
 use Civi\Api4\Generic\Result;
 use CRM_ConfigProfiles_ExtensionUtil as E;
 
@@ -28,7 +28,11 @@ class GetAction extends DAOGetAction {
 
   public function getObjects(Result $result) {
     if (isset($this->type)) {
-      /* @var \Civi\ConfigProfiles\ConfigProfileInterface $class */
+      /**
+       * @phpcs:disable
+       * @var \Civi\ConfigProfiles\ConfigProfileInterface $class
+       * @phpcs:enable
+       */
       $class = \CRM_ConfigProfiles_BAO_ConfigProfile::getClassFromTypeName($this->type);
       foreach (array_keys($class::getFields()) as $field_name) {
         // Store pseudo "data" fields in the SELECT clause.

@@ -1,14 +1,13 @@
 <?php
-// phpcs:disable
+
 use CRM_ConfigProfiles_ExtensionUtil as E;
-use \Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Civi\Core\Event\GenericHookEvent;
-// phpcs:enable
 
 class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_ConfigProfile implements EventSubscriberInterface {
 
   /**
-   * @var array $_types
+   * @var array
    *   A static cache of classes implementing specific profile types.
    */
   private static ?array $_types;
@@ -97,7 +96,7 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
   /**
    * Make configuration profiles available to FormBuilder.
    *
-   * @param GenericHookEvent $e
+   * @param \Civi\Core\Event\GenericHookEvent $event
    */
   public static function afformEntityTypes(GenericHookEvent $event) {
     $event->entities['ConfigProfile'] = [
@@ -165,7 +164,8 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
           ->addWhere('input_type', 'IS NOT EMPTY')
           // Don't allow type to be changed on the form, since this form is specific to type.
           ->addWhere('name', '!=', 'type')
-          // Don't include the serialized "data" field in the form, as individual data properties will have their own fields per type.
+          // Don't include the serialized "data" field in the form, as individual data properties will have their own
+          // fields per type.
           ->addWhere('name', '!=', 'data')
           ->execute();
         $item['layout'] = \CRM_Core_Smarty::singleton()->fetchWith('ang/afformConfigProfile.tpl', [

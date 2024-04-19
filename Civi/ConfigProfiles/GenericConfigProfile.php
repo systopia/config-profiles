@@ -3,7 +3,6 @@
 namespace Civi\ConfigProfiles;
 
 use Civi\Api4\Service\Spec\RequestSpec;
-use Civi\ConfigProfiles\ConfigProfileInterface;
 
 class GenericConfigProfile extends \CRM_ConfigProfiles_BAO_ConfigProfile implements ConfigProfileInterface {
 

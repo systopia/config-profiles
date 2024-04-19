@@ -23,7 +23,11 @@ trait SaveTrait {
         throw new \Exception('Unable to determine ConfigProfile type.');
       }
 
-      /* @var \Civi\ConfigProfiles\ConfigProfileInterface $class */
+      /**
+       * @phpcs:disable
+       * @var \Civi\ConfigProfiles\ConfigProfileInterface $class
+       * @phpcs:enable
+       */
       $class = $types[$type]['class'];
       foreach (array_keys($class::getFields()) as $field_name) {
         if (isset($item[$field_name])) {

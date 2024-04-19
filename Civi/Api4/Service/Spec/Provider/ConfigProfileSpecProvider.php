@@ -15,20 +15,24 @@ class ConfigProfileSpecProvider implements SpecProviderInterface {
    * @param \Civi\Api4\Service\Spec\RequestSpec $spec
    */
   public function modifySpec(RequestSpec $spec) {
-   if (
+    if (
       ($type = $spec->getValue('type'))
       && ($class = \CRM_ConfigProfiles_BAO_ConfigProfile::getClassFromTypeName($type))
       && in_array(ConfigProfileInterface::class, class_implements($class))
     ) {
-      /* @var ConfigProfileInterface $class */
+      /**
+       * @phpcs:disable
+       * @var ConfigProfileInterface $class
+       * @phpcs:enable
+       */
 
-     // Add pseudo data fields to the API sepcification.
-     foreach ($class::getFields() as $field_name => $field) {
-       $spec->addFieldSpec($field);
-     }
+      // Add pseudo data fields to the API sepcification.
+      foreach ($class::getFields() as $field_name => $field) {
+        $spec->addFieldSpec($field);
+      }
 
-     // Allow custom modifications.
-     $class::modifyFieldSpec($spec);
+      // Allow custom modifications.
+      $class::modifyFieldSpec($spec);
     }
   }
 
