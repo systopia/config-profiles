@@ -12,6 +12,6 @@ class GenericConfigProfile extends \CRM_ConfigProfiles_BAO_ConfigProfile impleme
 
   public static function modifyFieldSpec(RequestSpec $spec): void {}
 
-  public static function processValues(array $item, array &$data): void {}
+  public static function processValues(array &$item): void {}
 
 }

@@ -20,7 +20,7 @@ trait SaveTrait {
     foreach ($items as &$item) {
       $type = $item['type'] ?? self::getType($item['id'] ?? NULL);
       if (!isset($type)) {
-        throw new \Exception('Unable to determine ConfigProfile type.');
+        throw new \CRM_Core_Exception('Unable to determine ConfigProfile type.');
       }
 
       /**

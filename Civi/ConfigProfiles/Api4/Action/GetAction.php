@@ -12,7 +12,7 @@ class GetAction extends DAOGetAction {
 
   protected ?string $type = NULL;
 
-  public function setType($type) {
+  public function setType(string $type): void {
     $this->type = $type;
   }
 
@@ -26,7 +26,10 @@ class GetAction extends DAOGetAction {
     return parent::addWhere('data', 'CONTAINS', '"' . $fieldName . '":"' . $value . '"');
   }
 
-  public function getObjects(Result $result) {
+  /**
+   * {@inheritDoc}
+   */
+  public function getObjects(Result $result): void {
     if (isset($this->type)) {
       /**
        * @phpcs:disable
@@ -36,18 +39,21 @@ class GetAction extends DAOGetAction {
       $class = \CRM_ConfigProfiles_BAO_ConfigProfile::getClassFromTypeName($this->type);
       foreach (array_keys($class::getFields()) as $field_name) {
         // Store pseudo "data" fields in the SELECT clause.
-        if (in_array($field_name, $this->select)) {
+        if (in_array($field_name, $this->select, TRUE)) {
           $this->selectFields[] = $field_name;
-          unset($this->select[array_search($field_name, $this->select)]);
+          unset($this->select[array_search($field_name, $this->select, TRUE)]);
         }
       }
-      if (!empty($this->selectFields)) {
+      if ([] !== $this->selectFields) {
         $this->addSelect('data');
       }
     }
     parent::getObjects($result);
     // Set selected pseudo "data" fields as result fields.
     foreach ($this->selectFields as $field_name) {
+      /**
+       * @var array{data: array<string, mixed>} $row
+       */
       foreach ($result as &$row) {
         $row[$field_name] = $row['data'][$field_name];
         // TODO: Let configuration type classes transform the values.
@@ -76,11 +82,18 @@ class GetAction extends DAOGetAction {
       // Rebuild API entity cache if ConfigProfile_$type API has not been
       // registered yet.
       // TODO: This load-order issue should be solved differently.
-      $knownEntities = \Civi::service('action_object_provider')->getEntities();
+      /**
+       * @var \Civi\Api4\Provider\ActionObjectProvider $actionObjectProvider
+       */
+      $actionObjectProvider = \Civi::service('action_object_provider');
+      $knownEntities = $actionObjectProvider->getEntities();
       $entity = $this->getEntityName() . '_' . $this->type;
       if (!array_key_exists($entity, $knownEntities)) {
         \Civi::cache('metadata')->clear();
       }
+      /**
+       * @var \Civi\Api4\Generic\DAOGetFieldsAction $getFields
+       */
       $getFields = \Civi\API\Request::create($this->getEntityName() . '_' . $this->type, 'getFields', $getFieldsParams);
       $result = new Result();
       // Pass TRUE for the private $isInternal param

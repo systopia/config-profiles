@@ -1,4 +1,21 @@
 <?php
+/*
+ * Copyright (C) 2022 SYSTOPIA GmbH
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation in version 3.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+declare(strict_types = 1);
 
 namespace Civi\Api4;
 
@@ -42,7 +59,7 @@ class ConfigProfile {
    * @param bool $checkPermissions
    *
    * @return \Civi\ConfigProfiles\Api4\Action\GetAction
-   * @throws \API_Exception
+   * @throws \CRM_Core_Exception
    */
   public static function get(string $profile_type = NULL, $checkPermissions = TRUE) {
     $action = (new GetAction('ConfigProfile', __FUNCTION__))
@@ -59,7 +76,6 @@ class ConfigProfile {
    * @param bool $checkPermissions
    *
    * @return \Civi\Api4\Generic\AutocompleteAction
-   * @throws \API_Exception
    */
   public static function autocomplete(string $profile_type = NULL, $checkPermissions = TRUE) {
     $action = (new \Civi\Api4\Generic\AutocompleteAction('ConfigProfile', __FUNCTION__))
@@ -75,7 +91,6 @@ class ConfigProfile {
    * @param bool $checkPermissions
    *
    * @return \Civi\ConfigProfiles\Api4\Action\SaveAction
-   * @throws \API_Exception
    */
   public static function save(string $profile_type = NULL, $checkPermissions = TRUE) {
     $action = (new SaveAction('ConfigProfile', __FUNCTION__))
@@ -90,8 +105,7 @@ class ConfigProfile {
    * @param string $profile_type
    * @param bool $checkPermissions
    *
-   * @return EckDAOCreateAction
-   * @throws \API_Exception
+   * @return \Civi\ConfigProfiles\Api4\Action\CreateAction
    */
   public static function create(string $profile_type = NULL, $checkPermissions = TRUE) {
     $action = (new CreateAction('ConfigProfile', __FUNCTION__))
@@ -106,8 +120,8 @@ class ConfigProfile {
    * @param string $profile_type
    * @param bool $checkPermissions
    *
-   * @return EckDAOUpdateAction
-   * @throws \API_Exception
+   * @return \Civi\ConfigProfiles\Api4\Action\UpdateAction
+   * @throws \CRM_Core_Exception
    */
   public static function update(string $profile_type = NULL, $checkPermissions = TRUE) {
     $action = (new UpdateAction('ConfigProfile', __FUNCTION__))
@@ -124,8 +138,8 @@ class ConfigProfile {
    * @param string $profile_type
    * @param bool $checkPermissions
    *
-   * @return EckDAODeleteAction
-   * @throws \API_Exception
+   * @return \Civi\Api4\Generic\DAODeleteAction
+   * @throws \CRM_Core_Exception
    */
   public static function delete(string $profile_type = NULL, $checkPermissions = TRUE) {
     $action = (new DAODeleteAction('ConfigProfile', __FUNCTION__))
@@ -141,7 +155,7 @@ class ConfigProfile {
    * @param bool $checkPermissions
    *
    * @return \Civi\Api4\Generic\BasicReplaceAction
-   * @throws \API_Exception
+   * @throws \CRM_Core_Exception
    */
   public static function replace(string $profile_type = NULL, $checkPermissions = TRUE) {
     $action = (new BasicReplaceAction('ConfigProfile', __FUNCTION__))
@@ -168,7 +182,7 @@ class ConfigProfile {
   /**
    * @return \Civi\Api4\Action\GetLinks
    */
-  public static function getLinks($checkPermissions = TRUE) {
+  public static function getLinks(bool $checkPermissions = TRUE) {
     // CiviCRM 5.70+
     if (class_exists('Civi\Api4\Action\GetLinks')) {
       return (new \Civi\Api4\Action\GetLinks('ConfigProfile', __FUNCTION__))
@@ -176,6 +190,7 @@ class ConfigProfile {
     }
     // Older versions do not support this action so just return a placeholder
     else {
+      // @phpstan-ignore-next-line CiviCRM <5.70 does not have class \Civi\Api4\Generic\BasicGetAction.
       return (new \Civi\Api4\Generic\BasicGetAction('ConfigProfile', __FUNCTION__, fn() => []))
         ->setCheckPermissions($checkPermissions);
     }
@@ -185,7 +200,6 @@ class ConfigProfile {
    * @param string $profile_type
    *
    * @return \Civi\Api4\Generic\CheckAccessAction
-   * @throws \API_Exception
    */
   public static function checkAccess(string $profile_type = NULL) {
     $action = (new CheckAccessAction('ConfigProfile', __FUNCTION__));
@@ -196,7 +210,7 @@ class ConfigProfile {
   }
 
   /**
-   * @return array
+   * @return array<string, array{label: string, description?: string}>
    */
   public static function permissions(): array {
     // TODO: Add per-profile-type permissions.

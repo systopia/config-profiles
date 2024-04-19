@@ -7,7 +7,7 @@ use Civi\Core\Event\GenericHookEvent;
 class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_ConfigProfile implements EventSubscriberInterface {
 
   /**
-   * @var array
+   * @var array<string, string>
    *   A static cache of classes implementing specific profile types.
    */
   private static ?array $_types;
@@ -25,15 +25,17 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
   /**
    * Create a new ConfigProfile based on array-data
    *
-   * @param array $params key-value pairs
+   * @param array<string, mixed> $params
+   *   Key-value pairs
    * @return CRM_ConfigProfiles_DAO_ConfigProfile|NULL
    */
   public static function create($params) {
     $className = self::getTypeClass($params['type']) ?? 'CRM_ConfigProfiles_DAO_ConfigProfile';
     $entityName = 'ConfigProfile';
-    $hook = empty($params['id']) ? 'create' : 'edit';
+    $params['id'] = isset($params['id']) ? (int) $params['id'] : NULL;
+    $hook = NULL === $params['id'] ? 'create' : 'edit';
 
-    CRM_Utils_Hook::pre($hook, $entityName, CRM_Utils_Array::value('id', $params), $params);
+    CRM_Utils_Hook::pre($hook, $entityName, $params['id'], $params);
     $instance = new $className();
     $instance->copyValues($params);
     $instance->save();
@@ -42,17 +44,31 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
     return $instance;
   }
 
-  private static function getTypeClass($type) {
+  private static function getTypeClass(string $type): ?string {
     if (!isset(self::$_types)) {
       self::$_types = [];
       $event = GenericHookEvent::create(['types' => &self::$_types]);
       Civi::dispatcher()->dispatch('civi.config_profiles.types', $event);
     }
 
-    return self::$_types[$type];
+    return self::$_types[$type] ?? NULL;
   }
 
-  public static function getTypes($includeFields = FALSE) {
+  /**
+   * @param bool $includeFields
+   *
+   * @return array<string, array{
+   *   name: string,
+   *   label: string,
+   *   description: string,
+   *   class: string,
+   *   icon: string,
+   *   entity_name: string,
+   * }>
+   * @throws \CRM_Core_Exception
+   * @throws \Civi\Core\Exception\DBQueryException
+   */
+  public static function getTypes(bool $includeFields = FALSE): array {
     $types = Civi::cache('metadata')->get('ConfigProfileTypes');
     if (!is_array($types)) {
       // We can not use APIv4 for retrieving types (which are OptionValues) as
@@ -65,7 +81,7 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
         'name'
       );
       // The OptionGroup might not yet exist when installing.
-      if ($optionGroupId) {
+      if (is_numeric($optionGroupId)) {
         $types = CRM_Core_DAO::executeQuery(
           "SELECT `name`, `label`, `description`, `value` AS 'class', `icon`
       FROM `civicrm_option_value`
@@ -84,11 +100,11 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
     return $types ?? [];
   }
 
-  public static function getTypeFromApiEntityName($entityName) {
+  public static function getTypeFromApiEntityName(string $entityName): ?string {
     return strpos($entityName, 'ConfigProfile_') === 0 ? substr($entityName, strlen('ConfigProfile_')) : NULL;
   }
 
-  public static function getClassFromTypeName($type_name) {
+  public static function getClassFromTypeName(string $type_name): string {
     $types = self::getTypes();
     return $types[$type_name]['class'];
   }
@@ -98,7 +114,7 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
    *
    * @param \Civi\Core\Event\GenericHookEvent $event
    */
-  public static function afformEntityTypes(GenericHookEvent $event) {
+  public static function afformEntityTypes(GenericHookEvent $event): void {
     $event->entities['ConfigProfile'] = [
       'entity' => 'ConfigProfile',
       'label' => E::ts('Configuration Profile (generic)'),
@@ -122,9 +138,9 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
    * Generates Afform forms for each configuration profile type.
    *
    * @param \Civi\Core\Event\GenericHookEvent $event
-   * @throws \API_Exception
+   * @throws \CRM_Core_Exception
    */
-  public static function getConfigProfileAfforms($event) {
+  public static function getConfigProfileAfforms($event): void {
     // Early return if forms are not requested.
     if ($event->getTypes && !in_array('form', $event->getTypes, TRUE)) {
       return;

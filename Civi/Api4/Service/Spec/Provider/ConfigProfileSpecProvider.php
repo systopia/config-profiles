@@ -16,16 +16,10 @@ class ConfigProfileSpecProvider implements SpecProviderInterface {
    */
   public function modifySpec(RequestSpec $spec) {
     if (
-      ($type = $spec->getValue('type'))
-      && ($class = \CRM_ConfigProfiles_BAO_ConfigProfile::getClassFromTypeName($type))
-      && in_array(ConfigProfileInterface::class, class_implements($class))
+      is_string($type = $spec->getValue('type'))
+      && is_string($class = \CRM_ConfigProfiles_BAO_ConfigProfile::getClassFromTypeName($type))
+      && is_a($class, ConfigProfileInterface::class, TRUE)
     ) {
-      /**
-       * @phpcs:disable
-       * @var ConfigProfileInterface $class
-       * @phpcs:enable
-       */
-
       // Add pseudo data fields to the API sepcification.
       foreach ($class::getFields() as $field_name => $field) {
         $spec->addFieldSpec($field);

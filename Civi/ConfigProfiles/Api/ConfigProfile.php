@@ -40,7 +40,7 @@ class ConfigProfile implements EventSubscriberInterface, ApiProviderInterface {
    *
    * @param \Civi\Core\Event\GenericHookEvent $event
    */
-  public function onApi4EntityTypes(GenericHookEvent $event) {
+  public function onApi4EntityTypes(GenericHookEvent $event): void {
     foreach (\CRM_ConfigProfiles_BAO_ConfigProfile::getTypes() as $profile_type) {
       $event->entities[$profile_type['entity_name']] = [
         'name' => $profile_type['entity_name'],
