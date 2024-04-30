@@ -1,5 +1,5 @@
 <?php
-use CRM_Eck_ExtensionUtil as E;
+use CRM_ConfigProfiles_ExtensionUtil as E;
 
 // Auto-generate saved search and search display for each entity type
 $searches = [];
@@ -109,14 +109,15 @@ foreach (\CRM_ConfigProfiles_BAO_ConfigProfile::getTypes() as $type) {
               'size' => 'btn-xs',
               'links' => [
                 [
-                  'entity' => $type['entity_name'],
-                  'action' => 'update',
+                  'entity' => '',
+                  'action' => '',
+                  'task' => '',
                   'join' => '',
                   'target' => 'crm-popup',
                   'icon' => 'fa-pencil',
                   'text' => E::ts('Edit'),
                   'style' => 'default',
-                  'path' => '',
+                  'path' => 'civicrm/admin/config-profile/[type]/edit#?ConfigProfile_hiorg=[id]',
                   'condition' => [],
                 ],
               ],
