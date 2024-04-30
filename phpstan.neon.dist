@@ -38,4 +38,8 @@ parameters:
 		#- # Accessing results of API requests
 			#message: "#^Offset '[^']+' does not exist on array[^\\|]+\\|null.$#"
 			#path: */tests/phpunit/**/*Test.php
+		- '#Method Civi\\ConfigProfiles\\Api4\\Action\\UpdateAction::write\(\) has parameter \$items with no value type specified in iterable type array.#'
+		- '#Method Civi\\ConfigProfiles\\Api4\\Action\\SaveAction::write\(\) has parameter \$items with no value type specified in iterable type array.#'
+		- '#Method Civi\\ConfigProfiles\\Api4\\Action\\CreateAction::write\(\) has parameter \$items with no value type specified in iterable type array.#'
+		- '#Method Civi\\ConfigProfiles\\Api4\\Action\\GetAction::entityFields\(\) return type has no value type specified in iterable type array.#'
 	tmpDir: .phpstan

@@ -8,6 +8,9 @@ use CRM_ConfigProfiles_ExtensionUtil as E;
 
 class GetAction extends DAOGetAction {
 
+  /**
+   * @phpstan-var list<string>
+   */
   protected array $selectFields = [];
 
   protected ?string $type = NULL;
@@ -20,7 +23,7 @@ class GetAction extends DAOGetAction {
     // For pseudo data fields, add conditions for the "data" column with the
     // "CONTAINS" operator.
     $fields = $this->entityFields();
-    if (!empty($fields[$fieldName]['column_name'])) {
+    if (is_string($fields[$fieldName]['column_name']) && '' !== $fields[$fieldName]['column_name']) {
       return parent::addWhere($fieldName, $op, $value, $isExpression);
     }
     return parent::addWhere('data', 'CONTAINS', '"' . $fieldName . '":"' . $value . '"');

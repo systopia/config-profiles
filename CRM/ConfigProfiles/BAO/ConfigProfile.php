@@ -25,7 +25,7 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
   /**
    * Create a new ConfigProfile based on array-data
    *
-   * @param array<string, mixed> $params
+   * @param array{type: string, id?: string|int} $params
    *   Key-value pairs
    * @return CRM_ConfigProfiles_DAO_ConfigProfile|NULL
    */
@@ -36,10 +36,11 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
     $hook = NULL === $params['id'] ? 'create' : 'edit';
 
     CRM_Utils_Hook::pre($hook, $entityName, $params['id'], $params);
+    /** @var CRM_ConfigProfiles_DAO_ConfigProfile $instance */
     $instance = new $className();
     $instance->copyValues($params);
     $instance->save();
-    CRM_Utils_Hook::post($hook, $entityName, $instance->id, $instance);
+    CRM_Utils_Hook::post($hook, $entityName, (int) $instance->id, $instance);
 
     return $instance;
   }
@@ -64,7 +65,7 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
    *   class: string,
    *   icon: string,
    *   entity_name: string,
-   * }>
+   *   }>
    * @throws \CRM_Core_Exception
    * @throws \Civi\Core\Exception\DBQueryException
    */
@@ -74,6 +75,7 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
       // We can not use APIv4 for retrieving types (which are OptionValues) as
       // this causes an infinite loop when called inside
       // hook_civicrm_entityTypes().
+      // TODO: Do not use Core method not marked with @api.
       $optionGroupId = \CRM_Core_DAO::getFieldValue(
         'CRM_Core_DAO_OptionGroup',
         'config_profile_type',
@@ -82,21 +84,34 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
       );
       // The OptionGroup might not yet exist when installing.
       if (is_numeric($optionGroupId)) {
-        $types = CRM_Core_DAO::executeQuery(
+        $query = CRM_Core_DAO::executeQuery(
           "SELECT `name`, `label`, `description`, `value` AS 'class', `icon`
       FROM `civicrm_option_value`
       WHERE `civicrm_option_value`.`option_group_id` = $optionGroupId"
-        )->fetchAll();
-        foreach ($types as &$type) {
-          $type['entity_name'] = 'ConfigProfile_' . $type['name'];
-          if (empty($type['icon'])) {
-            $type['icon'] = 'fa-cogs';
+        );
+        if (is_a($query, CRM_Core_DAO::class)) {
+          $types = $query->fetchAll();
+          foreach ($types as &$type) {
+            $type['entity_name'] = 'ConfigProfile_' . $type['name'];
+            if (!is_string($type['icon']) || '' === $type['icon']) {
+              $type['icon'] = 'fa-cogs';
+            }
           }
+          $types = array_combine(array_column($types, 'name'), $types);
+          Civi::cache('metadata')->set('ConfigProfileTypes', $types);
         }
-        $types = array_combine(array_column($types, 'name'), $types);
-        Civi::cache('metadata')->set('ConfigProfileTypes', $types);
       }
     }
+
+    /** @phpstan-var array<string, array{
+     * name: string,
+     * label: string,
+     * description: string,
+     * class: string,
+     * icon: string,
+     * entity_name: string,
+     * }> $types
+     */
     return $types ?? [];
   }
 
@@ -151,9 +166,18 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
 
     // Early return if this API call is fetching afforms by name and those names are not related to ConfigProfiles.
     if (
-      (!empty($getNames['name']) && !strstr(implode(' ', $getNames['name']), 'ConfigProfile_'))
-      || (!empty($getNames['module_name']) && !strstr(implode(' ', $getNames['module_name']), 'ConfigProfile'))
-      || (!empty($getNames['directive_name']) && !strstr(implode(' ', $getNames['directive_name']), 'config_profile'))
+      (
+        isset($getNames['name'])
+        && FALSE === strstr(implode(' ', $getNames['name']), 'ConfigProfile_')
+      )
+      || (
+        isset($getNames['module_name'])
+        && FALSE === strstr(implode(' ', $getNames['module_name']), 'ConfigProfile')
+      )
+      || (
+        isset($getNames['directive_name'])
+        && FALSE === strstr(implode(' ', $getNames['directive_name']), 'config_profile')
+      )
     ) {
       return;
     }

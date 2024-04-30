@@ -4,11 +4,10 @@ namespace Civi\ConfigProfiles\Api;
 
 use Civi\API\Events;
 use Civi\Core\Event\GenericHookEvent;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Civi\API\Provider\ProviderInterface as ApiProviderInterface;
+use Civi\Core\Service\AutoSubscriber;
 use CRM_ConfigProfiles_ExtensionUtil as E;
 
-class ConfigProfile implements EventSubscriberInterface, ApiProviderInterface {
+class ConfigProfile extends AutoSubscriber {
 
   /**
    * @inheritDoc
@@ -17,20 +16,6 @@ class ConfigProfile implements EventSubscriberInterface, ApiProviderInterface {
     return [
       'civi.api4.entityTypes' => ['onApi4EntityTypes', Events::W_EARLY],
     ];
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public function getEntityNames($version) {
-    return [];
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public function getActionNames($version, $entity) {
-    return [];
   }
 
   /**
@@ -79,12 +64,6 @@ class ConfigProfile implements EventSubscriberInterface, ApiProviderInterface {
       'class' => '\Civi\Api4\ConfigProfile',
       'icon' => 'fa-cogs',
     ];
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public function invoke($apiRequest) {
   }
 
 }

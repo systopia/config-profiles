@@ -22,7 +22,6 @@ require_once 'config_profiles.civix.php';
 // phpcs:enable
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use \Symfony\Component\DependencyInjection\Definition;
 
 // phpcs:disable
 use CRM_ConfigProfiles_ExtensionUtil as E;
@@ -57,8 +56,9 @@ function config_profiles_civicrm_enable(): void {
 }
 
 function config_profiles_civicrm_container(ContainerBuilder $container) {
-  // Register API Provider.
-  $apiKernelDefinition = $container->getDefinition('civi_api_kernel');
-  $apiProviderDefinition = new Definition('Civi\ConfigProfiles\Api\ConfigProfile');
-  $apiKernelDefinition->addMethodCall('registerApiProvider', [$apiProviderDefinition]);
+  $container->register(
+    \Civi\ConfigProfiles\Api\ConfigProfile::class,
+    \Civi\ConfigProfiles\Api\ConfigProfile::class
+  )
+    ->addTag('kernel.event_subscriber');
 }
