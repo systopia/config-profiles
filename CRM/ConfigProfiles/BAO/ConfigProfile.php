@@ -75,31 +75,25 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
       // We can not use APIv4 for retrieving types (which are OptionValues) as
       // this causes an infinite loop when called inside
       // hook_civicrm_entityTypes().
-      // TODO: Do not use Core method not marked with @api.
-      $optionGroupId = \CRM_Core_DAO::getFieldValue(
-        'CRM_Core_DAO_OptionGroup',
-        'config_profile_type',
-        'id',
-        'name'
+      $query = CRM_Core_DAO::executeQuery(
+        <<<SQL
+        SELECT ov.`name`, ov.`label`, ov.`description`, ov.`value` AS 'class', ov.`icon`
+        FROM `civicrm_option_value` ov
+        INNER JOIN `civicrm_option_group`
+          ON `civicrm_option_group`.`id` = ov.`option_group_id`
+          AND `civicrm_option_group`.`name` = 'config_profile_type';
+        SQL
       );
-      // The OptionGroup might not yet exist when installing.
-      if (is_numeric($optionGroupId)) {
-        $query = CRM_Core_DAO::executeQuery(
-          "SELECT `name`, `label`, `description`, `value` AS 'class', `icon`
-      FROM `civicrm_option_value`
-      WHERE `civicrm_option_value`.`option_group_id` = $optionGroupId"
-        );
-        if (is_a($query, CRM_Core_DAO::class)) {
-          $types = $query->fetchAll();
-          foreach ($types as &$type) {
-            $type['entity_name'] = 'ConfigProfile_' . $type['name'];
-            if (!is_string($type['icon']) || '' === $type['icon']) {
-              $type['icon'] = 'fa-cogs';
-            }
+      if (is_a($query, CRM_Core_DAO::class)) {
+        $types = $query->fetchAll();
+        foreach ($types as &$type) {
+          $type['entity_name'] = 'ConfigProfile_' . $type['name'];
+          if (!is_string($type['icon']) || '' === $type['icon']) {
+            $type['icon'] = 'fa-cogs';
           }
-          $types = array_combine(array_column($types, 'name'), $types);
-          Civi::cache('metadata')->set('ConfigProfileTypes', $types);
         }
+        $types = array_combine(array_column($types, 'name'), $types);
+        Civi::cache('metadata')->set('ConfigProfileTypes', $types);
       }
     }
 
