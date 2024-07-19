@@ -23,9 +23,9 @@ use Civi\Api4\Action\GetActions;
 use Civi\Api4\Generic\BasicReplaceAction;
 use Civi\Api4\Generic\CheckAccessAction;
 use Civi\Api4\Generic\DAODeleteAction;
-use Civi\Api4\Generic\DAOGetFieldsAction;
 use Civi\ConfigProfiles\Api4\Action\CreateAction;
 use Civi\ConfigProfiles\Api4\Action\GetAction;
+use Civi\ConfigProfiles\Api4\Action\GetFieldsAction;
 use Civi\ConfigProfiles\Api4\Action\SaveAction;
 use Civi\ConfigProfiles\Api4\Action\UpdateAction;
 
@@ -45,7 +45,7 @@ class ConfigProfile {
    * @return \Civi\Api4\Generic\DAOGetFieldsAction
    */
   public static function getFields(string $profile_type = NULL, $checkPermissions = TRUE) {
-    $action = (new DAOGetFieldsAction('ConfigProfile', __FUNCTION__))
+    $action = (new GetFieldsAction('ConfigProfile', __FUNCTION__))
       ->setCheckPermissions($checkPermissions);
     if (isset($profile_type)) {
       $action
