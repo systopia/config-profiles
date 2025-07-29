@@ -1,6 +1,5 @@
 parameters:
 	paths:
-		- api
 		- Civi
 		- CRM
 		- tests
@@ -39,4 +38,11 @@ parameters:
 	ignoreErrors:
 		# Note paths are prefixed with "*/" to work with inspections in PHPStorm because of:
 		# https://youtrack.jetbrains.com/issue/WI-63891/PHPStan-ignoreErrors-configuration-isnt-working-with-inspections
+
+		# Wrong type hint
+		- '#^Method Civi\\ConfigProfiles\\Api4\\Action\\GetAction::entityFields\(\) return type has no value type specified in iterable type array.$#'
+		- '#^Method Civi\\ConfigProfiles\\Api4\\Action\\GetFieldsAction::setValues\(\) has parameter \$values with no value type specified in iterable type array.$#'
+		- '#^Method Civi\\ConfigProfiles\\Api4\\Action\\CreateAction::write\(\) has parameter \$items with no value type specified in iterable type array.$#'
+		- '#^Method Civi\\ConfigProfiles\\Api4\\Action\\SaveAction::write\(\) has parameter \$items with no value type specified in iterable type array.$#'
+		- '#^Method Civi\\ConfigProfiles\\Api4\\Action\\UpdateAction::write\(\) has parameter \$items with no value type specified in iterable type array.$#'
 	tmpDir: .phpstan
