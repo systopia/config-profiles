@@ -2,9 +2,7 @@
 <extension key="config-profiles" type="module">
   <file>config_profiles</file>
   <name>Configuration Profiles</name>
-  <description>This extension provides a data structure for configuration that
-    is organized in configurable profiles
-  </description>
+  <description>This extension provides a data structure for configuration that is organized in configurable profiles</description>
   <license>AGPL-3.0</license>
   <maintainer>
     <author>SYSTOPIA GmbH</author>
@@ -20,7 +18,7 @@
   <version>1.0.0-dev</version>
   <develStage>dev</develStage>
   <compatibility>
-    <ver>5.58</ver>
+    <ver>5.70</ver>
   </compatibility>
   <comments>This extension is most likely only needed to be installed as a
     dependency of other extensions.

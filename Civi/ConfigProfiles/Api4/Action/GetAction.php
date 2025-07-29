@@ -1,4 +1,21 @@
 <?php
+/*
+ * Copyright (C) 2025 SYSTOPIA GmbH
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as published by
+ *  the Free Software Foundation in version 3.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+declare(strict_types = 1);
 
 namespace Civi\ConfigProfiles\Api4\Action;
 
@@ -26,6 +43,7 @@ class GetAction extends DAOGetAction {
     if (is_string($fields[$fieldName]['column_name']) && '' !== $fields[$fieldName]['column_name']) {
       return parent::addWhere($fieldName, $op, $value, $isExpression);
     }
+    /** @phpstan-var string $value */
     return parent::addWhere('data', 'CONTAINS', '"' . $fieldName . '":"' . $value . '"');
   }
 
@@ -34,11 +52,7 @@ class GetAction extends DAOGetAction {
    */
   public function getObjects(Result $result): void {
     if (isset($this->type)) {
-      /**
-       * @phpcs:disable
-       * @var \Civi\ConfigProfiles\ConfigProfileInterface $class
-       * @phpcs:enable
-       */
+      /** @phpstan-var class-string<\Civi\ConfigProfiles\ConfigProfileInterface> $class */
       $class = \CRM_ConfigProfiles_BAO_ConfigProfile::getClassFromTypeName($this->type);
       foreach (array_keys($class::getFields()) as $field_name) {
         // Store pseudo "data" fields in the SELECT clause.

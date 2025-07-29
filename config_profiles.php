@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright (C) 2022 SYSTOPIA GmbH
+ * Copyright (C) 2025 SYSTOPIA GmbH
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as published by
@@ -33,7 +33,7 @@ use CRM_ConfigProfiles_ExtensionUtil as E;
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_config/
  */
-function config_profiles_civicrm_config(&$config): void {
+function config_profiles_civicrm_config(\CRM_Core_Config &$config): void {
   _config_profiles_civix_civicrm_config($config);
 }
 
@@ -55,7 +55,7 @@ function config_profiles_civicrm_enable(): void {
   _config_profiles_civix_civicrm_enable();
 }
 
-function config_profiles_civicrm_container(ContainerBuilder $container) {
+function config_profiles_civicrm_container(ContainerBuilder $container): void {
   $container->register(
     \Civi\ConfigProfiles\Api\ConfigProfile::class,
     \Civi\ConfigProfiles\Api\ConfigProfile::class
