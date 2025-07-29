@@ -18,7 +18,7 @@
   <version>1.0.0-dev</version>
   <develStage>dev</develStage>
   <compatibility>
-    <ver>5.58</ver>
+    <ver>5.65</ver>
   </compatibility>
   <comments>This extension is most likely only needed to be installed as a
     dependency of other extensions.
