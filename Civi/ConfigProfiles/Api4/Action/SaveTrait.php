@@ -40,11 +40,7 @@ trait SaveTrait {
         throw new \CRM_Core_Exception('Unable to determine ConfigProfile type.');
       }
 
-      /**
-       * @phpcs:disable
-       * @var \Civi\ConfigProfiles\ConfigProfileInterface $class
-       * @phpcs:enable
-       */
+      /** @phpstan-var class-string<\Civi\ConfigProfiles\ConfigProfileInterface> $class */
       $class = $types[$type]['class'];
       foreach (array_keys($class::getFields()) as $field_name) {
         if (isset($item[$field_name])) {
@@ -58,7 +54,7 @@ trait SaveTrait {
     return \CRM_ConfigProfiles_BAO_ConfigProfile::writeRecords($items);
   }
 
-  public static function getType(int $id = NULL): ?string {
+  public static function getType(?int $id = NULL): ?string {
     return isset($id)
       ? ConfigProfile::get(NULL, FALSE)
         ->addSelect('type')

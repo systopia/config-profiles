@@ -20,6 +20,8 @@ declare(strict_types = 1);
 namespace Civi\Api4;
 
 use Civi\Api4\Action\GetActions;
+use Civi\Api4\Action\GetLinks;
+use Civi\Api4\Generic\AutocompleteAction;
 use Civi\Api4\Generic\BasicReplaceAction;
 use Civi\Api4\Generic\CheckAccessAction;
 use Civi\Api4\Generic\DAODeleteAction;
@@ -38,13 +40,7 @@ use Civi\ConfigProfiles\Api4\Action\UpdateAction;
  */
 class ConfigProfile {
 
-  /**
-   * @param string $profile_type
-   * @param bool $checkPermissions
-   *
-   * @return \Civi\Api4\Generic\DAOGetFieldsAction
-   */
-  public static function getFields(string $profile_type = NULL, $checkPermissions = TRUE) {
+  public static function getFields(?string $profile_type = NULL, bool $checkPermissions = TRUE): GetFieldsAction {
     $action = (new GetFieldsAction('ConfigProfile', __FUNCTION__))
       ->setCheckPermissions($checkPermissions);
     if (isset($profile_type)) {
@@ -54,14 +50,7 @@ class ConfigProfile {
     return $action;
   }
 
-  /**
-   * @param string $profile_type
-   * @param bool $checkPermissions
-   *
-   * @return \Civi\ConfigProfiles\Api4\Action\GetAction
-   * @throws \CRM_Core_Exception
-   */
-  public static function get(string $profile_type = NULL, $checkPermissions = TRUE) {
+  public static function get(?string $profile_type = NULL, bool $checkPermissions = TRUE): GetAction {
     $action = (new GetAction('ConfigProfile', __FUNCTION__))
       ->setCheckPermissions($checkPermissions);
     if (isset($profile_type)) {
@@ -71,13 +60,7 @@ class ConfigProfile {
     return $action;
   }
 
-  /**
-   * @param string $profile_type
-   * @param bool $checkPermissions
-   *
-   * @return \Civi\Api4\Generic\AutocompleteAction
-   */
-  public static function autocomplete(string $profile_type = NULL, $checkPermissions = TRUE) {
+  public static function autocomplete(?string $profile_type = NULL, bool $checkPermissions = TRUE): AutocompleteAction {
     $action = (new \Civi\Api4\Generic\AutocompleteAction('ConfigProfile', __FUNCTION__))
       ->setCheckPermissions($checkPermissions);
     if (isset($profile_type)) {
@@ -86,13 +69,7 @@ class ConfigProfile {
     return $action;
   }
 
-  /**
-   * @param string $profile_type
-   * @param bool $checkPermissions
-   *
-   * @return \Civi\ConfigProfiles\Api4\Action\SaveAction
-   */
-  public static function save(string $profile_type = NULL, $checkPermissions = TRUE) {
+  public static function save(?string $profile_type = NULL, bool $checkPermissions = TRUE): SaveAction {
     $action = (new SaveAction('ConfigProfile', __FUNCTION__))
       ->setCheckPermissions($checkPermissions);
     if (isset($profile_type)) {
@@ -101,13 +78,7 @@ class ConfigProfile {
     return $action;
   }
 
-  /**
-   * @param string $profile_type
-   * @param bool $checkPermissions
-   *
-   * @return \Civi\ConfigProfiles\Api4\Action\CreateAction
-   */
-  public static function create(string $profile_type = NULL, $checkPermissions = TRUE) {
+  public static function create(?string $profile_type = NULL, bool $checkPermissions = TRUE): CreateAction {
     $action = (new CreateAction('ConfigProfile', __FUNCTION__))
       ->setCheckPermissions($checkPermissions);
     if (isset($profile_type)) {
@@ -116,14 +87,7 @@ class ConfigProfile {
     return $action;
   }
 
-  /**
-   * @param string $profile_type
-   * @param bool $checkPermissions
-   *
-   * @return \Civi\ConfigProfiles\Api4\Action\UpdateAction
-   * @throws \CRM_Core_Exception
-   */
-  public static function update(string $profile_type = NULL, $checkPermissions = TRUE) {
+  public static function update(?string $profile_type = NULL, bool $checkPermissions = TRUE): UpdateAction {
     $action = (new UpdateAction('ConfigProfile', __FUNCTION__))
       ->setCheckPermissions($checkPermissions);
     if (isset($profile_type)) {
@@ -134,14 +98,7 @@ class ConfigProfile {
     return $action;
   }
 
-  /**
-   * @param string $profile_type
-   * @param bool $checkPermissions
-   *
-   * @return \Civi\Api4\Generic\DAODeleteAction
-   * @throws \CRM_Core_Exception
-   */
-  public static function delete(string $profile_type = NULL, $checkPermissions = TRUE) {
+  public static function delete(?string $profile_type = NULL, bool $checkPermissions = TRUE): DAODeleteAction {
     $action = (new DAODeleteAction('ConfigProfile', __FUNCTION__))
       ->setCheckPermissions($checkPermissions);
     if (isset($profile_type)) {
@@ -150,14 +107,7 @@ class ConfigProfile {
     return $action;
   }
 
-  /**
-   * @param string $profile_type
-   * @param bool $checkPermissions
-   *
-   * @return \Civi\Api4\Generic\BasicReplaceAction
-   * @throws \CRM_Core_Exception
-   */
-  public static function replace(string $profile_type = NULL, $checkPermissions = TRUE) {
+  public static function replace(?string $profile_type = NULL, bool $checkPermissions = TRUE): BasicReplaceAction {
     $action = (new BasicReplaceAction('ConfigProfile', __FUNCTION__))
       ->setCheckPermissions($checkPermissions);
     if (isset($profile_type)) {
@@ -168,40 +118,17 @@ class ConfigProfile {
     return $action;
   }
 
-  /**
-   * @param string $profile_type
-   * @param bool $checkPermissions
-   *
-   * @return \Civi\Api4\Action\GetActions
-   */
-  public static function getActions(string $profile_type = NULL, $checkPermissions = TRUE) {
+  public static function getActions(?string $profile_type = NULL, bool $checkPermissions = TRUE): GetActions {
     return (new GetActions('ConfigProfile', __FUNCTION__))
       ->setCheckPermissions($checkPermissions);
   }
 
-  /**
-   * @return \Civi\Api4\Action\GetLinks
-   */
-  public static function getLinks(bool $checkPermissions = TRUE) {
-    // CiviCRM 5.70+
-    if (class_exists('Civi\Api4\Action\GetLinks')) {
-      return (new \Civi\Api4\Action\GetLinks('ConfigProfile', __FUNCTION__))
-        ->setCheckPermissions($checkPermissions);
-    }
-    // Older versions do not support this action so just return a placeholder
-    else {
-      // @phpstan-ignore-next-line CiviCRM <5.70 does not have class \Civi\Api4\Generic\BasicGetAction.
-      return (new \Civi\Api4\Generic\BasicGetAction('ConfigProfile', __FUNCTION__, fn() => []))
-        ->setCheckPermissions($checkPermissions);
-    }
+  public static function getLinks(bool $checkPermissions = TRUE): GetLinks {
+    return (new \Civi\Api4\Action\GetLinks('ConfigProfile', __FUNCTION__))
+      ->setCheckPermissions($checkPermissions);
   }
 
-  /**
-   * @param string $profile_type
-   *
-   * @return \Civi\Api4\Generic\CheckAccessAction
-   */
-  public static function checkAccess(string $profile_type = NULL) {
+  public static function checkAccess(?string $profile_type = NULL): CheckAccessAction {
     $action = (new CheckAccessAction('ConfigProfile', __FUNCTION__));
     if (isset($profile_type)) {
       $action->addValue('type', $profile_type);

@@ -43,6 +43,7 @@ class GetAction extends DAOGetAction {
     if (is_string($fields[$fieldName]['column_name']) && '' !== $fields[$fieldName]['column_name']) {
       return parent::addWhere($fieldName, $op, $value, $isExpression);
     }
+    /** @phpstan-var string $value */
     return parent::addWhere('data', 'CONTAINS', '"' . $fieldName . '":"' . $value . '"');
   }
 
@@ -51,11 +52,7 @@ class GetAction extends DAOGetAction {
    */
   public function getObjects(Result $result): void {
     if (isset($this->type)) {
-      /**
-       * @phpcs:disable
-       * @var \Civi\ConfigProfiles\ConfigProfileInterface $class
-       * @phpcs:enable
-       */
+      /** @phpstan-var class-string<\Civi\ConfigProfiles\ConfigProfileInterface> $class */
       $class = \CRM_ConfigProfiles_BAO_ConfigProfile::getClassFromTypeName($this->type);
       foreach (array_keys($class::getFields()) as $field_name) {
         // Store pseudo "data" fields in the SELECT clause.

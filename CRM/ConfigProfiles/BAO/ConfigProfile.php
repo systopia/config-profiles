@@ -29,7 +29,7 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
    * @var array<string, string>
    *   A static cache of classes implementing specific profile types.
    */
-  private static ?array $_types;
+  private static ?array $_types = NULL;
 
   /**
    * @inheritDoc
@@ -60,7 +60,7 @@ class CRM_ConfigProfiles_BAO_ConfigProfile extends CRM_ConfigProfiles_DAO_Config
     $instance->copyValues($params);
     $instance->save();
     CRM_Utils_Hook::post($hook, $entityName, (int) $instance->id, $instance);
-
+    /** @phpstan-var CRM_ConfigProfiles_DAO_ConfigProfile $instance */
     return $instance;
   }
 
