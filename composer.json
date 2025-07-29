@@ -1,13 +1,25 @@
 {
     "name": "systopia/config-profiles",
+    "description": "This extension provides a data structure for configuration that is organized in configurable profiles",
     "type": "civicrm-ext",
     "license": "AGPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "SYSTOPIA GmbH",
+            "email": "info@systopia.de",
+            "homepage": "https://www.systopia.de"
+        }
+    ],
     "minimum-stability": "dev",
     "prefer-stable": true,
     "config": {
-	"sort-packages": true
+        "prepend-autoloader": false,
+        "sort-packages": true,
+        "platform": {
+        }
     },
     "require": {
+        "php": "^8.1"
     },
     "scripts": {
         "composer-phpcs": [
@@ -31,7 +43,7 @@
             "@php tools/phpcs/vendor/bin/phpcbf"
         ],
         "phpstan": [
-            "@php tools/phpstan/vendor/bin/phpstan"
+            "@php tools/phpstan/vendor/bin/phpstan -v"
         ],
         "phpunit": [
             "@php tools/phpunit/vendor/bin/simple-phpunit --coverage-text"
