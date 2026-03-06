@@ -31,4 +31,5 @@ fi
 
 cd "$SCRIPT_DIR/.."
 
-civistrings -o "l10n/config-profiles.pot" - < <(git ls-files)
+[ -d l10n ] || mkdir l10n
+civistrings -o "l10n/config_profiles.pot" - < <(git ls-files)

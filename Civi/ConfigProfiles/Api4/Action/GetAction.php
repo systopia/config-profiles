@@ -85,7 +85,7 @@ class GetAction extends DAOGetAction {
   /**
    * {@inheritDoc}
    */
-  public function entityFields() {
+  public function entityFields(?string $entityName = NULL, ?string $actionName = NULL) {
     // Add type to getFields parameters if it is in the WHERE clause.
     if (isset($this->type)) {
       $allowedTypes = ['Field', 'Filter', 'Extra'];
@@ -118,7 +118,7 @@ class GetAction extends DAOGetAction {
       return (array) $result->indexBy('name');
     }
     else {
-      return parent::entityFields();
+      return parent::entityFields($entityName, $actionName);
     }
   }
 
