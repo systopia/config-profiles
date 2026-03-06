@@ -65,8 +65,8 @@ msgstr "Profildaten"
 #: CRM/ConfigProfiles/DAO/ConfigProfile.php
 msgid "Actual profile data as defined by the config profile type provider."
 msgstr ""
-"Eigentliche Profildaten wie durch den Anbieter des Konfigurationsprofil-"
-"Typs definiert"
+"Eigentliche Profildaten wie durch den Anbieter des Konfigurationsprofil-Typs "
+"definiert."
 
 #: CRM/ConfigProfiles/DAO/ConfigProfile.php
 msgid "Selector"
@@ -118,8 +118,7 @@ msgstr "Bearbeitungsdatum"
 
 #: CRM/ConfigProfiles/DAO/ConfigProfile.php
 msgid "When the configuration profile was created or last modified."
-msgstr ""
-"Wann das Konfigurationsprofile zuletzt bearbeitet oder erstellt wurde."
+msgstr "Wann das Konfigurationsprofile zuletzt bearbeitet oder erstellt wurde."
 
 #: CRM/ConfigProfiles/DAO/ConfigProfile.php
 msgid "Access Date"
