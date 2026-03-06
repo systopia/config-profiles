@@ -1,5 +1,5 @@
 site_name: Configuration Profiles
-site_description: A guide for the Configuration Profiles CiviCRM extension.
+site_description: This extension provides a data structure for configuration that is organized in configurable profiles
 site_author: SYSTOPIA GmbH
 repo_url: https://github.com/systopia/config-profiles
 
@@ -16,7 +16,7 @@ markdown_extensions:
   - def_list
   - codehilite
   - toc:
-      permalink: True
+      permalink: true
   - pymdownx.superfences
   - pymdownx.inlinehilite
   - pymdownx.tilde
